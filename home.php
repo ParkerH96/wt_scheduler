@@ -134,7 +134,6 @@
       $(document).ready(function(){
         $('.shift-block .remove-item').on('click', function(){
           let shift_id = $(this).data('shift-id');
-          console.log(shift_id);
           $('#DoubleCheck .modal-footer a').attr('href', 'delete-shift.php?shift_id=' + shift_id);
         });
 
