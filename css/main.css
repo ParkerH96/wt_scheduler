@@ -1,0 +1,83 @@
+.navbar {
+  background-color: #0033A0;
+}
+.scheduler-navbar.navbar {
+  padding: 1rem;
+}
+ul.navbar-nav li a {
+  color: white;
+}
+.shift-block {
+    position: relative;
+    padding: 1rem;
+    width: 150px;
+    box-shadow: 1px 1px 2px #333;
+}
+.shift-block p {
+    margin-bottom: 0;
+}
+.shift-block p .fa-times {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  padding: 5px;
+  background-color: #ff0000;
+  display: none;
+}
+.shift-block p .fa-times:hover {
+  cursor: pointer;
+}
+.shift-block p {
+  color: white;
+  font-weight: bold;
+}
+.shift-block:hover .fa-times, .shift-block:focus .fa-times {
+  display: block;
+}
+button:hover {
+  cursor: pointer;
+}
+.login-body {
+  background-color: #f1f1f1;
+}
+#login {
+  width: 350px;
+  padding: 24px;
+  margin: 72px auto 68px;
+  background: #fff;
+  position: relative;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+#login input {
+    width: 100%;
+    height: 40px;
+}
+#login input[type="text"], #login input[type="password"] {
+    margin-bottom: 5%;
+    border: none;
+    border: solid 1px #ddd;
+    background-color: #fbfbfb;
+    font-size: 2rem;
+    padding: 3px;
+}
+#login input[type="submit"] {
+    color: white;
+    background-color: #0033A0;
+    border: none;
+    border-radius: 4px;
+}
+#login input[type="submit"]:hover, #login input[type="submit"]:focus {
+    background-color: #003fc7;
+}
+#login h1 {
+    position: absolute;
+    top: -72px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+}
+#scheduler {
+  display: none;
+}
