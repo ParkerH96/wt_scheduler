@@ -52,25 +52,77 @@
       <h2>Your shifts</h2>
       <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
       <hr>
-      <div class="container">
-        <div class="row">
+      <div class="container-fluid schedule-view">
+        <?php
+          include 'connection.php';
+
+          $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
+
+          $shifts = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id");
+        ?>
+        <script type="text/javascript">
+          function getHeaderDate(headerDate) {
+            var diff = date.getDate() + 1; document.write((new Date(date.setDate(diff))).toLocaleDateString());
+          }
+          var date = new Date();
+          var day = date.getDay();
+
+        </script>
+        <table style="width: 100%;" class="schedule-table">
+          <tr>
+            <th></th>
+            <th>Sunday<br /> <script type="text/javascript">var diff = date.getDate() - day; document.write((new Date(date.setDate(diff))).toLocaleDateString()); </script></th>
+
+            <th>Monday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+
+            <th>Tuesday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+
+            <th>Wednesday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+
+            <th>Thursday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+
+            <th>Friday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+
+            <th>Saturday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+          </tr>
           <?php
-            include 'connection.php';
+            while($current_row = $employees->fetch_assoc()){
+                $date = date("Y/m/d");
+                $dayofweek = date('w', strtotime($date));
+                $weekStart = date('Y/m/d', strtotime('-'.$dayofweek.' days'));
+              ?>
 
-            $shifts = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id");
+              <tr>
+                <th><?php echo $current_row['first_name'] . " " . $current_row['last_name'] ?></th>
+                <?php for ($i=0; $i < 7; $i++) {
+                  include 'connection.php';
 
-            while($current_row = $shifts->fetch_assoc()){ ?>
-              <div class="col-md-2">
-                <?php displayDate($current_row['shift_date']); ?>
+                  $employee_id = $current_row['employee_id'];
 
-                <div class="shift-block" style="background-color: <?php echo $current_row['color']; ?>;">
-                  <p><?php echo substr($current_row['start_time'], 0, 5) . '-' . substr($current_row['end_time'], 0, 5); ?> <a class="remove-item" data-shift-id="<?php echo $current_row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck"><i class="fa fa-times" aria-hidden="true"></i></a></p>
-                </div>
-              </div>
+                  $shift_date = (string) date('Y-m-d', strtotime('-'.$dayofweek+$i.' days'));
+                  $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id AND shift_date = '".$shift_date."' ");
+
+                  if($shift->num_rows > 0){
+                    while($row = $shift->fetch_assoc()) { ?>
+
+                      <td class="shift-block" style="background-color: <?php echo $row['color'] ?>"><p>
+                        <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?><a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                      </p>
+
               <?php
-            }
-          ?>
-        </div>
+                    }
+                  }
+                  else { ?>
+                    <td></td>
+              <?php
+                  }
+                } ?>
+
+              </tr>
+
+      <?php } ?>
+
+        </table>
       </div>
     </div>
 

@@ -81,3 +81,15 @@ button:hover {
 #scheduler {
   display: none;
 }
+.schedule-table, .schedule-table th, .schedule-table td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  text-align: center;
+  table-layout: fixed;
+  empty-cells: show;
+}
+.schedule-table td {
+  height: 3rem;
+  color: white;
+  font-size: 1.25rem;
+}
