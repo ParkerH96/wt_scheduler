@@ -37,28 +37,18 @@
     </div>
   </head>
   <body>
-    <?php
-
-      function displayDate($date){
-        $month = substr($date, 5, 2);
-        if($month == '01') { echo 'January, '; } else if($month == '02') { echo 'Feburary, '; } else if($month == '03') { echo 'March, '; }
-        else if($month == '04') { echo 'April, '; } else if($month == '05') { echo 'May, '; } else if($month == '06') { echo 'June, '; }
-        else if($month == '07') { echo 'July, '; } else if($month == '08') { echo 'August, '; } else if($month == '09') { echo 'September, '; }
-        else if($month == '10') { echo 'October, '; } else if($month == '11') { echo 'November, '; } else if($month == '12') { echo 'December, '; }
-        echo substr($date, 8, 2) . ' ' . substr($date, 0, 4);
-      }
-    ?>
     <div id="scheduler">
       <h2>Your shifts</h2>
       <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
       <hr>
-      <div class="container-fluid schedule-view">
+      <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
           include 'connection.php';
 
           $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
-
-          $shifts = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id");
+          $date = date("Y/m/d");
+          $dayofweek = date('w', strtotime($date));
+          $weekStart = date('Y/m/d', strtotime('-'.$dayofweek.' days'));
         ?>
         <script type="text/javascript">
           function getHeaderDate(headerDate) {
@@ -69,7 +59,7 @@
 
         </script>
         <table style="width: 100%;" class="schedule-table">
-          <tr>
+          <tr class="week-days">
             <th></th>
             <th>Sunday<br /> <script type="text/javascript">var diff = date.getDate() - day; document.write((new Date(date.setDate(diff))).toLocaleDateString()); </script></th>
 
@@ -86,42 +76,39 @@
             <th>Saturday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
           </tr>
           <?php
-            while($current_row = $employees->fetch_assoc()){
-                $date = date("Y/m/d");
-                $dayofweek = date('w', strtotime($date));
-                $weekStart = date('Y/m/d', strtotime('-'.$dayofweek.' days'));
-              ?>
-
+            while($current_row = $employees->fetch_assoc()){  ?>
               <tr>
                 <th><?php echo $current_row['first_name'] . " " . $current_row['last_name'] ?></th>
-                <?php for ($i=0; $i < 7; $i++) {
-                  include 'connection.php';
+                  <?php for ($i=0; $i < 7; $i++) {
+                    include 'connection.php';
 
-                  $employee_id = $current_row['employee_id'];
+                    $employee_id = $current_row['employee_id'];
 
-                  $shift_date = (string) date('Y-m-d', strtotime('-'.$dayofweek+$i.' days'));
-                  $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id AND shift_date = '".$shift_date."' ");
+                    $shift_date = (string) date('Y-m-d', strtotime('-'.$dayofweek+$i.' days'));
+                    $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id AND shift_date = '".$shift_date."' ");
 
-                  if($shift->num_rows > 0){
-                    while($row = $shift->fetch_assoc()) { ?>
+                    if($shift->num_rows > 0){
+                      while($row = $shift->fetch_assoc()) { ?>
 
-                      <td class="shift-block" style="background-color: <?php echo $row['color'] ?>"><p>
-                        <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?><a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                      </p>
+                        <td class="shift-block" style="background-color: <?php echo $row['color'] ?>">
+                          <p>
+                            <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?>
+                              <a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                              </a>
+                          </p>
+                        </td>
 
-              <?php
+                    <?php
+                      }
                     }
-                  }
-                  else { ?>
-                    <td></td>
-              <?php
-                  }
-                } ?>
-
+                    else { ?>
+                      <td></td>
+                <?php
+                    }
+                  } ?>
               </tr>
-
       <?php } ?>
-
         </table>
       </div>
     </div>

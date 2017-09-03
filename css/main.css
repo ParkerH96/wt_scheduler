@@ -7,37 +7,6 @@
 ul.navbar-nav li a {
   color: white;
 }
-.shift-block {
-    position: relative;
-    padding: 1rem;
-    width: 150px;
-    box-shadow: 1px 1px 2px #333;
-}
-.shift-block p {
-    margin-bottom: 0;
-}
-.shift-block p .fa-times {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: white;
-  padding: 5px;
-  background-color: #ff0000;
-  display: none;
-}
-.shift-block p .fa-times:hover {
-  cursor: pointer;
-}
-.shift-block p {
-  color: white;
-  font-weight: bold;
-}
-.shift-block:hover .fa-times, .shift-block:focus .fa-times {
-  display: block;
-}
-button:hover {
-  cursor: pointer;
-}
 .login-body {
   background-color: #f1f1f1;
 }
@@ -78,18 +47,58 @@ button:hover {
     width: 100%;
     text-align: center;
 }
+.shift-block {
+    position: relative;
+    width: 150px;
+    box-shadow: 1px 1px 2px #333;
+}
+.shift-block p {
+    margin-bottom: 0;
+}
+.shift-block p .fa-times {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 5px;
+  background-color: rgba(255,255,255, .4);
+  display: none;
+}
+.shift-block p .fa-times:hover {
+  cursor: pointer;
+}
+.shift-block p {
+  color: #e8e8e8;
+}
+.shift-block:hover .fa-times, .shift-block:focus .fa-times {
+  display: block;
+}
+button:hover {
+  cursor: pointer;
+}
+
 #scheduler {
   display: none;
 }
-.schedule-table, .schedule-table th, .schedule-table td {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  text-align: center;
+.schedule-table{
   table-layout: fixed;
   empty-cells: show;
 }
+.schedule-table th, .schedule-table td {
+  border-collapse: collapse;
+    text-align: center;
+}
+.schedule-table th {
+  border-bottom: 1px solid #d4d4d4;
+  background-color: #969696;
+  color: #e8e8e8;
+}
 .schedule-table td {
+  border: 1px solid #d4d4d4;
   height: 3rem;
-  color: white;
-  font-size: 1.25rem;
+  color: #e8e8e8;
+  font-size: 1rem;
+}
+.schedule-table tr:nth-child(odd) {
+  background-color: #f2f2f2;
 }
