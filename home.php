@@ -113,10 +113,10 @@
                           <p>
                             <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?>
                               <?php if($admin_tag == 1) { ?>
-                              <a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
+                              <a class="remove-item" data-week="<?php echo $week; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </a>
-                              <a class="edit-item" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $row['shift_date']; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-start-time="<?php echo $row['start_time']; ?>" data-end-time="<?php echo $row['end_time']; ?>" data-toggle="modal" data-target="#EditShift">
+                              <a class="edit-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $row['shift_date']; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-start-time="<?php echo $row['start_time']; ?>" data-end-time="<?php echo $row['end_time']; ?>" data-toggle="modal" data-target="#EditShift">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                               </a>
                             <?php } ?>
@@ -191,6 +191,7 @@
                 Day <input type="date" name="shift_date" required><br><br>
                 Start Time <input type="time" name="start_time" required><br><br>
                 End Time <input type="time" name="end_time" required><br><br>
+                <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Add Shift" class="btn btn-success">
@@ -226,6 +227,7 @@
                 Start Time <input type="time" name="start_time" required><br><br>
                 End Time <input type="time" name="end_time" required><br><br>
                 <input style="display: none;" type="text" name="shift_id">
+                <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Update" class="btn btn-success">
@@ -239,7 +241,8 @@
       $(document).ready(function(){
         $('.shift-block .remove-item').on('click', function(){
           let shift_id = $(this).data('shift-id');
-          $('#DoubleCheck .modal-footer a').attr('href', 'delete-shift.php?shift_id=' + shift_id);
+          let week = $(this).data('week');
+          $('#DoubleCheck .modal-footer a').attr('href', 'delete-shift.php?shift_id=' + shift_id + '&week=' + week);
         });
 
         $('.shift-block .edit-item').on('click', function(){

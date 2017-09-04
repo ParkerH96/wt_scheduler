@@ -8,10 +8,11 @@
     $end_time = $mysqli->escape_string($_POST['end_time'] . ':00');
     $employee_id = $mysqli->escape_string($_POST['employee_select']);
     $shift_id = $mysqli->escape_string($_POST['shift_id']);
+    $week = $mysqli->escape_string($_POST['week']);
 
     $mysqli->query("UPDATE SHIFT SET employee_id = $employee_id, shift_date = '$shift_date', start_time = '$start_time', end_time = '$end_time' WHERE shift_id = $shift_id;");
 
-    header("location: home.php");
+    header("location: home.php?week=$week");
 
   }
 ?>
