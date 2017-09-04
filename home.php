@@ -111,7 +111,8 @@
 
                         <td class="shift-block" style="background-color: <?php echo $current_row['color'] ?>">
                           <p>
-                            <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?>
+                            <?php if((int)date('H', strtotime($row['start_time'])) % 12 != 0) { echo (int)date('H', strtotime($row['start_time'])) % 12; } else { echo 12; } echo date(':i A', strtotime($row['start_time'])) ?>
+                              - <?php if((int)date('H', strtotime($row['end_time'])) % 12 != 0) { echo (int)date('H', strtotime($row['end_time'])) % 12; } else { echo 12; } echo date(':i A', strtotime($row['end_time'])); ?>
                               <?php if($admin_tag == 1) { ?>
                               <a class="remove-item" data-week="<?php echo $week; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
                                 <i class="fa fa-times" aria-hidden="true"></i>
