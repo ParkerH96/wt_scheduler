@@ -38,9 +38,13 @@
   </head>
   <body>
     <div id="scheduler">
-      <h2>Your shifts</h2>
+      <?php if($admin_tag == 1) { ?>
       <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
+<<<<<<< HEAD
 
+=======
+    <?php } ?>
+>>>>>>> d590f2b5789847bea332b60605a4513d4afee6c0
       <hr>
       <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
@@ -90,9 +94,14 @@
                         <td class="shift-block" style="background-color: <?php echo $current_row['color'] ?>">
                           <p>
                             <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?>
+                              <?php if($admin_tag == 1) { ?>
                               <a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </a>
+                              <a class="edit-item" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $row['shift_date']; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-start-time="<?php echo $row['start_time']; ?>" data-end-time="<?php echo $row['end_time']; ?>" data-toggle="modal" data-target="#EditShift">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                              </a>
+                            <?php } ?>
                           </p>
                         </td>
 
@@ -163,10 +172,44 @@
                 Day <input type="date" name="shift_date" required><br><br>
                 Start Time <input type="time" name="start_time" required><br><br>
                 End Time <input type="time" name="end_time" required><br><br>
-                Color <input type="color" name="color" required>
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Add Shift" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="EditShift" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Shift</h4>
+          </div>
+          <form action="edit-shift.php" method="post">
+            <div class="modal-body">
+                Employee
+                <select name="employee_select">
+                  <?php
+                    $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
+
+                    while($employee =  $employees->fetch_assoc()){
+                      echo '<option value="' . $employee['employee_id'] . '">' . $employee['first_name'] . ' ' . $employee['last_name'] . '</option>';
+                    }
+                  ?>
+                </select><br><br>
+                Day <input type="date" name="shift_date" required><br><br>
+                Start Time <input type="time" name="start_time" required><br><br>
+                End Time <input type="time" name="end_time" required><br><br>
+                <input style="display: none;" type="text" name="shift_id">
+            </div>
+            <div class="modal-footer">
+              <input type="submit" name="submit" value="Update" class="btn btn-success">
             </div>
           </form>
         </div>
@@ -178,6 +221,19 @@
         $('.shift-block .remove-item').on('click', function(){
           let shift_id = $(this).data('shift-id');
           $('#DoubleCheck .modal-footer a').attr('href', 'delete-shift.php?shift_id=' + shift_id);
+        });
+
+        $('.shift-block .edit-item').on('click', function(){
+          let shift_id = $(this).data('shift-id');
+          let start_time = $(this).data('start-time');
+          let end_time = $(this).data('end-time');
+          let shift_date = $(this).data('shift-date');
+          let employee_id = $(this).data('employee-id');
+          $('#EditShift input[name="shift_id"]').attr('value', shift_id);
+          $('#EditShift input[name="start_time"]').attr('value', start_time);
+          $('#EditShift input[name="end_time"]').attr('value', end_time);
+          $('#EditShift input[name="shift_date"]').attr('value', shift_date);
+          $('#EditShift select option[value=' + employee_id + ']').attr('selected', 'selected');
         });
 
       });
