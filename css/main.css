@@ -55,22 +55,30 @@ ul.navbar-nav li a {
 .shift-block p {
     margin-bottom: 0;
 }
-.shift-block p .fa-times {
+.shift-block p .fa {
   position: absolute;
-  top: 0;
-  right: 0;
   color: rgba(255, 255, 255, 0.9);
-  padding: 5px;
   background-color: rgba(255,255,255, .4);
   display: none;
 }
-.shift-block p .fa-times:hover {
+.shift-block p .fa-times {
+  top: 0;
+  right: 0;
+  font-size: 1.1rem;
+  padding: 3px;
+}
+.shift-block p .fa-pencil {
+  bottom: 0;
+  right: 0;
+  padding: 3px;
+}
+.shift-block p .fa:hover {
   cursor: pointer;
 }
 .shift-block p {
   color: #e8e8e8;
 }
-.shift-block:hover .fa-times, .shift-block:focus .fa-times {
+.shift-block:hover .fa, .shift-block:focus .fa {
   display: block;
 }
 button:hover {

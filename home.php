@@ -100,6 +100,9 @@
                               <a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </a>
+                              <a class="edit-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#EditShift">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                              </a>
                           </p>
                         </td>
 
@@ -180,11 +183,51 @@
 
       </div>
     </div>
+
+    <div id="EditShift" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Shift</h4>
+          </div>
+          <form action="edit-shift.php" method="post">
+            <div class="modal-body">
+                Employee
+                <select name="employee_select">
+                  <?php
+                    $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
+
+                    while($employee =  $employees->fetch_assoc()){
+                      echo '<option value="' . $employee['employee_id'] . '">' . $employee['first_name'] . ' ' . $employee['last_name'] . '</option>';
+                    }
+                  ?>
+                </select><br><br>
+                Day <input type="date" name="shift_date" required><br><br>
+                Start Time <input type="time" name="start_time" required><br><br>
+                End Time <input type="time" name="end_time" required><br><br>
+                <input style="display: none;" type="text" name="shift_id">
+            </div>
+            <div class="modal-footer">
+              <input type="submit" name="submit" value="Update" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
     <script type="text/javascript">
       $(document).ready(function(){
         $('.shift-block .remove-item').on('click', function(){
           let shift_id = $(this).data('shift-id');
           $('#DoubleCheck .modal-footer a').attr('href', 'delete-shift.php?shift_id=' + shift_id);
+        });
+
+        $('.shift-block .edit-item').on('click', function(){
+          let shift_id = $(this).data('shift-id');
+          $('#EditShift input[name="shift_id"]').attr('value', shift_id);
         });
 
       });
