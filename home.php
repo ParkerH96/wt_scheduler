@@ -38,8 +38,9 @@
   </head>
   <body>
     <div id="scheduler">
-      <h2>Your shifts</h2>
+      <?php if($admin_tag == 1) { ?>
       <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
+    <?php } ?>
       <hr>
       <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
@@ -97,12 +98,14 @@
                         <td class="shift-block" style="background-color: <?php echo $current_row['color'] ?>">
                           <p>
                             <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?>
+                              <?php if($admin_tag == 1) { ?>
                               <a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </a>
                               <a class="edit-item" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $row['shift_date']; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-start-time="<?php echo $row['start_time']; ?>" data-end-time="<?php echo $row['end_time']; ?>" data-toggle="modal" data-target="#EditShift">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                               </a>
+                            <?php } ?>
                           </p>
                         </td>
 
@@ -173,7 +176,6 @@
                 Day <input type="date" name="shift_date" required><br><br>
                 Start Time <input type="time" name="start_time" required><br><br>
                 End Time <input type="time" name="end_time" required><br><br>
-                Color <input type="color" name="color" required>
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Add Shift" class="btn btn-success">
