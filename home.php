@@ -138,7 +138,7 @@
                     }
                   } ?>
                   <script type="text/javascript">
-                    $('#employee-<?php echo $current_row['employee_id'] ?>-header').append("<br /><span class='employee-hours'><?php echo $hours->format('H.i') ?> hours</span>");
+                    $('#employee-<?php echo $current_row['employee_id'] ?>-header').append("<br /><span class='employee-hours'><?php $total_hours = (int)$hours->format('i') / 60 + (int)$hours->format('H'); echo $total_hours; ?> hours</span>");
                   </script>
               </tr>
       <?php } ?>

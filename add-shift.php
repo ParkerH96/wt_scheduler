@@ -14,4 +14,7 @@
     header("location: home.php?week=$week");
 
   }
+  else {
+    header("location: login.php");
+  }
 ?>
