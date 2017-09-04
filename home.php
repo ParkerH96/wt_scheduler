@@ -60,7 +60,7 @@
         </script>
         <table style="width: 100%;" class="schedule-table">
           <tr class="week-days">
-            <th></th>
+            <th style="background-color: white;"></th>
             <th>Sunday<br /> <script type="text/javascript">var diff = date.getDate() - day; document.write((new Date(date.setDate(diff))).toLocaleDateString()); </script></th>
 
             <th>Monday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
@@ -78,8 +78,12 @@
           <?php
             while($current_row = $employees->fetch_assoc()){  ?>
               <tr>
-                <th><?php echo $current_row['first_name'] . " " . $current_row['last_name'] ?></th>
-                  <?php for ($i=0; $i < 7; $i++) {
+                <th id="employee-<?php echo $current_row['employee_id'] ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name'] ?></th>
+
+                  <?php
+                  $hours = new DateTime('00:00:00');
+
+                   for ($i=0; $i < 7; $i++) {
                     include 'connection.php';
 
                     $employee_id = $current_row['employee_id'];
@@ -90,7 +94,7 @@
                     if($shift->num_rows > 0){
                       while($row = $shift->fetch_assoc()) { ?>
 
-                        <td class="shift-block" style="background-color: <?php echo $row['color'] ?>">
+                        <td class="shift-block" style="background-color: <?php echo $current_row['color'] ?>">
                           <p>
                             <?php echo date('h:i A', strtotime($row['start_time'])) ?> - <?php echo date('h:i A', strtotime($row['end_time']))?>
                               <a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
@@ -99,7 +103,11 @@
                           </p>
                         </td>
 
-                    <?php
+                        <?php
+                        $datetime = new DateTime($row['start_time']);
+                        $datetime1 = new DateTime($row['end_time']);
+                        $hours->add($datetime->diff($datetime1));
+
                       }
                     }
                     else { ?>
@@ -107,6 +115,9 @@
                 <?php
                     }
                   } ?>
+                  <script type="text/javascript">
+                    $('#employee-<?php echo $current_row['employee_id'] ?>-header').append("<br /><span class='employee-hours'><?php echo $hours->format('H.i') ?> hours</span>");
+                  </script>
               </tr>
       <?php } ?>
         </table>
