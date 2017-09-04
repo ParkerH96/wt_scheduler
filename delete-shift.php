@@ -4,7 +4,7 @@
 
   if(isset($_GET['shift_id']) && !empty($_GET['shift_id']) && $admin_tag == 1){
 
-    $shift_id = $_GET['shift_id'];
+    $shift_id = $mysqli->escape_string($_GET['shift_id']);
 
     $mysqli->query("DELETE FROM SHIFT WHERE shift_id = $shift_id");
 

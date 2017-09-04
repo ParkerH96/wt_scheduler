@@ -40,24 +40,7 @@
     <div id="scheduler">
       <h2>Your shifts</h2>
       <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
-      <?php
-          if(isset($_GET['week'])) {
-            $week = (int) $_GET['week'];
-          }
-          else {
-            $week = (int) date('w');
-          }
-                /* "next week" control */
-          $next_week_link = '<a href="?week='.($week + 1).'" class="control">Next Week >></a>';
 
-          /* "previous week" control */
-          $previous_week_link = '<a href="?week='.($week - 1).'" class="control"><< 	Previous Week</a>';
-
-          /* bringing the controls together */
-          $controls = '<form method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
-
-          echo $controls;
-       ?>
       <hr>
       <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
@@ -68,9 +51,6 @@
           $weekofmonth = date('w');
           $dayofweek = date('w', strtotime($date));
         ?>
-        <script type="text/javascript">
-          console.log("<?php echo $week.":".$weekofmonth ?>");
-        </script>
         <table style="width: 100%;" class="schedule-table">
           <tr class="week-days">
             <th style="background-color: white;"></th>
