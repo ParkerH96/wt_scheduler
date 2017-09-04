@@ -132,8 +132,8 @@
                       }
                     }
                     else { ?>
-                      <td><a class="add-item" data-week="<?php echo $week; ?>"  data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
-                        <i class="fa fa-plus" aria-hidden="true"></i></td>
+                      <td><a class="in-cell-add add-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
+                        <i class="fa fa-plus" aria-hidden="true"></i></a></td>
                 <?php
                     }
                   } ?>
@@ -257,6 +257,13 @@
           $('#EditShift input[name="end_time"]').attr('value', end_time);
           $('#EditShift input[name="shift_date"]').attr('value', shift_date);
           $('#EditShift select option[value=' + employee_id + ']').attr('selected', 'selected');
+        });
+
+        $('.in-cell-add').on('click', function(){
+          let shift_date = $(this).data('shift-date');
+          let employee_id = $(this).data('employee-id');
+          $('#AddShift input[name="shift_date"]').attr('value', shift_date);
+          $('#AddShift select option[value=' + employee_id + ']').attr('selected', 'selected');
         });
 
       });
