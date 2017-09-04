@@ -53,7 +53,7 @@ INSERT INTO EMPLOYEE(admin_tag, first_name, last_name, email, phone_number, dob,
 (0, 'Fox', 'Thorpe', 'adsf', 'asdf', '2017-09-20', 'ads', 'asdf', '#3a67bb'),
 (0, 'Andrew', 'Jackson', 'Ardf', 'asdf', '2017-09-21', 'asdf', 'asdf', '#bb3a3a');
 
-INSERT INTO SHIFT(employee_id, shift_date, start_time, end_time, color) VALUES
-(1, '2017-09-13', '05:30:00', '07:30:00', '#FF0000'),
-(1, '2017-09-14', '04:00:00', '10:00:00', '#003A00'),
-(1, '2017-09-15', '02:00:00', '06:00:00', '#47d1de');
+INSERT INTO SHIFT(employee_id, shift_date, start_time, end_time) VALUES
+(1, '2017-09-13', '05:30:00', '07:30:00'),
+(1, '2017-09-14', '04:00:00', '10:00:00'),
+(1, '2017-09-15', '02:00:00', '06:00:00');

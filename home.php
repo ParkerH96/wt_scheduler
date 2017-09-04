@@ -92,18 +92,19 @@
           <?php
             while($current_row = $employees->fetch_assoc()){  ?>
               <tr>
-                <th id="employee-<?php echo $current_row['employee_id'] ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name'] ?></th>
+                <th <?php if($current_row['employee_id'] == $employee_id) { echo 'style="background-color: #28a745 !important; color: #fff !important;"'; } ?> id="employee-<?php echo $current_row['employee_id']; ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name']; ?></th>
 
                   <?php
+
                   $hours = new DateTime('00:00:00');
 
                    for ($i=0; $i < 7; $i++) {
                     include 'connection.php';
 
-                    $employee_id = $current_row['employee_id'];
+                    $employee_id1 = $current_row['employee_id'];
 
                     $shift_date = (string) date('Y-m-d', strtotime('-'.($dayofweek-$i+(7*($weekofmonth-$week))).' days'));
-                    $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id AND shift_date = '".$shift_date."' ");
+                    $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id1 AND shift_date = '".$shift_date."' ");
 
                     if($shift->num_rows > 0){
                       while($row = $shift->fetch_assoc()) { ?>
