@@ -100,7 +100,7 @@
                               <a class="remove-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </a>
-                              <a class="edit-item" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#EditShift">
+                              <a class="edit-item" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $row['shift_date']; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-start-time="<?php echo $row['start_time']; ?>" data-end-time="<?php echo $row['end_time']; ?>" data-toggle="modal" data-target="#EditShift">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                               </a>
                           </p>
@@ -227,7 +227,15 @@
 
         $('.shift-block .edit-item').on('click', function(){
           let shift_id = $(this).data('shift-id');
+          let start_time = $(this).data('start-time');
+          let end_time = $(this).data('end-time');
+          let shift_date = $(this).data('shift-date');
+          let employee_id = $(this).data('employee-id');
           $('#EditShift input[name="shift_id"]').attr('value', shift_id);
+          $('#EditShift input[name="start_time"]').attr('value', start_time);
+          $('#EditShift input[name="end_time"]').attr('value', end_time);
+          $('#EditShift input[name="shift_date"]').attr('value', shift_date);
+          $('#EditShift select option[value=' + employee_id + ']').attr('selected', 'selected');
         });
 
       });
