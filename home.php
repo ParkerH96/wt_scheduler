@@ -40,11 +40,28 @@
     <div id="scheduler">
       <?php if($admin_tag == 1) { ?>
       <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
-<<<<<<< HEAD
-
-=======
     <?php } ?>
->>>>>>> d590f2b5789847bea332b60605a4513d4afee6c0
+
+    <?php
+          if(isset($_GET['week'])) {
+            $week = (int) $_GET['week'];
+          }
+          else {
+
+            $week = (int) date('w');
+          }
+                /* "next week" control */
+          $next_week_link = '<a href="?week='.($week + 1).'" class="control">Next Week >></a>';
+
+          /* "previous week" control */
+          $previous_week_link = '<a href="?week='.($week - 1).'" class="control"><< 	Previous Week</a>';
+
+          /* bringing the controls together */
+          $controls = '<form method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
+
+          echo $controls;
+       ?>
+
       <hr>
       <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
