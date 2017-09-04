@@ -187,9 +187,6 @@
           $('#DoubleCheck .modal-footer a').attr('href', 'delete-shift.php?shift_id=' + shift_id);
         });
 
-        $('#show-scheduler').on('click', function(){
-          $('#scheduler').show();
-        });
       });
     </script>
   </body>

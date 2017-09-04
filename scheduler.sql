@@ -24,6 +24,7 @@ CREATE TABLE EMPLOYEE
   dob date NOT NULL,
   username varchar(64) NOT NULL,
   password varchar(64) NOT NULL,
+  color varchar(16) NOT NULL,
   PRIMARY KEY (employee_id)
 );
 
@@ -40,9 +41,18 @@ CREATE TABLE SHIFT
   FOREIGN KEY (employee_id) REFERENCES EMPLOYEE(employee_id)
 );
 
-INSERT INTO EMPLOYEE(admin_tag, first_name, last_name, email, phone_number, dob, username, password) VALUES
-(1, 'Parker', 'Householder', 'paho224@g.uky.edu', '8593589125', '1996-05-01', 'paho224', 'wildcattech1'),
-(0, 'Zack', 'Arnett', 'zarnett@gmail.com', '8590849392', '1996-06-03', 'zsar221', 'wildcattech2');
+INSERT INTO EMPLOYEE(admin_tag, first_name, last_name, email, phone_number, dob, username, password, color) VALUES
+(1, 'Parker', 'Householder', 'paho224@g.uky.edu', '8593589125', '1996-05-01', 'paho224', 'wildcattech1', '#3bc19d'),
+(1, 'Zack', 'Arnett', 'arnett.zackary@gmail.com', '8590849392', '1996-06-03', 'zsar222', 'UKengineer14!', '#5f62e7'),
+(1, 'Lacy', 'May', 'asdf', 'asdf', '2017-09-13', 'LAcy', 'MAy', '#ef4354'),
+(1, 'Madison', 'Bartlett', 'madison@gmail.com', '630654321', '2017-09-08', 'maddog', 'maddog', '#4daede'),
+(1, 'Evan', 'Heaton', 'asdf', 'asdf', '2017-09-06', 'aad', 'asdf', '#deac4d'),
+(1, 'Robert', 'Cala', 'asd', 'asdf', '2017-09-12', 'adsf', 'asdf', '#784dde'),
+(1, 'David', 'Cottrell', 'adf', 'asdf', '2017-09-20', 'adsf', 'adf', '#de4d7b'),
+(1, 'Zachary', 'Moore', 'alkjsd', 'dfg', '2017-09-06', 'asd', 'asd', '#4ddea3'),
+(3, 'Brian', 'Luciano', 'asdf', 'asdf', '2017-09-20', 'asdf', 'asdf', '#ded44d'),
+(1, 'Fox', 'Thorpe', 'adsf', 'asdf', '2017-09-20', 'ads', 'asdf', '#3a67bb'),
+(1, 'Andrew', 'Jackson', 'Ardf', 'asdf', '2017-09-21', 'asdf', 'asdf', '#bb3a3a');
 
 INSERT INTO SHIFT(employee_id, shift_date, start_time, end_time, color) VALUES
 (1, '2017-09-13', '05:30:00', '07:30:00', '#FF0000'),

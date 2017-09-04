@@ -76,10 +76,6 @@ ul.navbar-nav li a {
 button:hover {
   cursor: pointer;
 }
-
-#scheduler {
-  display: none;
-}
 .schedule-table{
   table-layout: fixed;
   empty-cells: show;
