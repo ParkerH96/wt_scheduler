@@ -110,3 +110,17 @@ button:hover {
     font-weight: 400;
     font-size: .85rem;
 }
+td a.add-item i {
+  opacity: 0;
+  color: #bbbbbb;
+}
+td:hover a.add-item i{
+  opacity: 1;
+}
+td:hover {
+  cursor: pointer;
+}
+td a.add-item {
+  width: 100%;
+  height: 3rem;
+}

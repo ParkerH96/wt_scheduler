@@ -132,7 +132,8 @@
                       }
                     }
                     else { ?>
-                      <td></td>
+                      <td><a class="add-item" data-week="<?php echo $week; ?>"  data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
+                        <i class="fa fa-plus" aria-hidden="true"></i></td>
                 <?php
                     }
                   } ?>
