@@ -131,9 +131,9 @@
 
                       }
                     }
-                    else { ?>
-                      <td><a class="in-cell-add add-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
-                        <i class="fa fa-plus" aria-hidden="true"></i></a></td>
+                    else {  ?>
+                      <td><?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
+                        <i class="fa fa-plus" aria-hidden="true"></i></a><?php } ?></td>
                 <?php
                     }
                   } ?>
