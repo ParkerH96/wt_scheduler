@@ -40,40 +40,53 @@
     <div id="scheduler">
       <h2>Your shifts</h2>
       <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
+      <?php
+          if(isset($_GET['week'])) {
+            $week = (int) $_GET['week'];
+          }
+          else {
+            $week = (int) date('w');
+          }
+                /* "next week" control */
+          $next_week_link = '<a href="?week='.($week + 1).'" class="control">Next Week >></a>';
+
+          /* "previous week" control */
+          $previous_week_link = '<a href="?week='.($week - 1).'" class="control"><< 	Previous Week</a>';
+
+          /* bringing the controls together */
+          $controls = '<form method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
+
+          echo $controls;
+       ?>
       <hr>
       <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
           include 'connection.php';
 
           $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
-          $date = date("Y/m/d");
+          $date = date("Y-m-d");
+          $weekofmonth = date('w');
           $dayofweek = date('w', strtotime($date));
-          $weekStart = date('Y/m/d', strtotime('-'.$dayofweek.' days'));
         ?>
         <script type="text/javascript">
-          function getHeaderDate(headerDate) {
-            var diff = date.getDate() + 1; document.write((new Date(date.setDate(diff))).toLocaleDateString());
-          }
-          var date = new Date();
-          var day = date.getDay();
-
+          console.log("<?php echo $week.":".$weekofmonth ?>");
         </script>
         <table style="width: 100%;" class="schedule-table">
           <tr class="week-days">
             <th style="background-color: white;"></th>
-            <th>Sunday<br /> <script type="text/javascript">var diff = date.getDate() - day; document.write((new Date(date.setDate(diff))).toLocaleDateString()); </script></th>
+            <th>Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Monday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+            <th>Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-1+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Tuesday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+            <th>Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-2+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Wednesday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+            <th>Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($dayofweek-3+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Thursday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+            <th>Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-4+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Friday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+            <th>Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-5+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Saturday<br /> <script type="text/javascript">getHeaderDate(date); </script></th>
+            <th>Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-6+ (7*($weekofmonth-$week))).' days')); ?></th>
           </tr>
           <?php
             while($current_row = $employees->fetch_assoc()){  ?>
@@ -88,7 +101,7 @@
 
                     $employee_id = $current_row['employee_id'];
 
-                    $shift_date = (string) date('Y-m-d', strtotime('-'.$dayofweek+$i.' days'));
+                    $shift_date = (string) date('Y-m-d', strtotime('-'.($dayofweek-$i+(7*($weekofmonth-$week))).' days'));
                     $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id AND shift_date = '".$shift_date."' ");
 
                     if($shift->num_rows > 0){
