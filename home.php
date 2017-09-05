@@ -75,21 +75,24 @@
         <table style="width: 100%;" class="schedule-table">
           <tr class="week-days">
             <th style="background-color: white;"></th>
-            <th>Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-1+ (7*($weekofmonth-$week))).' days')); ?></th>
+            <th id="sunday-header">Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-2+ (7*($weekofmonth-$week))).' days')); ?></th>
+            <th id="monday-header">Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-1+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($dayofweek-3+ (7*($weekofmonth-$week))).' days')); ?></th>
+            <th id="tuesday-header">Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-2+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-4+ (7*($weekofmonth-$week))).' days')); ?></th>
+            <th id="wednesday-header">Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($dayofweek-3+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-5+ (7*($weekofmonth-$week))).' days')); ?></th>
+            <th id="thursday-header">Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-4+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th>Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-6+ (7*($weekofmonth-$week))).' days')); ?></th>
+            <th id="friday-header">Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-5+ (7*($weekofmonth-$week))).' days')); ?></th>
+
+            <th id="saturday-header">Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-6+ (7*($weekofmonth-$week))).' days')); ?></th>
           </tr>
           <?php
+            $sunhours = $monhours = $tueshours = $wedhours = $thurshours = $frihours = $sathours = new DateTime('00:00:00');
+
             while($current_row = $employees->fetch_assoc()){  ?>
               <tr>
                 <th <?php if($current_row['employee_id'] == $employee_id) { echo 'style="background-color: #28a745 !important; color: #fff !important;"'; } ?> id="employee-<?php echo $current_row['employee_id']; ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name']; ?></th>
@@ -98,7 +101,7 @@
 
                   $hours = new DateTime('00:00:00');
 
-                   for ($i=0; $i < 7; $i++) {
+                  for ($i=0; $i < 7; $i++) {
                     include 'connection.php';
 
                     $employee_id1 = $current_row['employee_id'];
@@ -107,7 +110,7 @@
                     $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id1 AND shift_date = '".$shift_date."' ");
 
                     if($shift->num_rows > 0){
-                      while($row = $shift->fetch_assoc()) { ?>
+                      while($row = $shift->fetch_assoc()) {?>
 
                         <td class="shift-block" style="background-color: <?php echo $current_row['color'] ?>">
                           <p>
@@ -130,6 +133,29 @@
                         $datetime1 = new DateTime($row['end_time']);
                         $hours->add($datetime->diff($datetime1));
 
+                        switch ($i) {
+                          case 0:
+                            $sunhours->add($datetime->diff($datetime1));
+                            break;
+                          case 1:
+                            $monhours->add($datetime->diff($datetime1));
+                            break;
+                          case 2:
+                            $tueshours->add($datetime->diff($datetime1));
+                            break;
+                          case 3:
+                            $wedhours->add($datetime->diff($datetime1));
+                            break;
+                          case 4:
+                            $thurshours->add($datetime->diff($datetime1));
+                            break;
+                          case 5:
+                            $frihours->add($datetime->diff($datetime1));
+                            break;
+                          case 6:
+                            $sathours->add($datetime->diff($datetime1));
+                            break;
+                        }
                       }
                     }
                     else {  ?>
@@ -143,6 +169,15 @@
                   </script>
               </tr>
       <?php } ?>
+            <script type="text/javascript">
+              $('#sunday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sunhours->format('i') / 60 + (int)$sunhours->format('H'); echo $totalhours; ?> hours</span>");
+              $('#monday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$monhours->format('i') / 60 + (int)$monhours->format('H'); echo $totalhours; ?> hours</span>");
+              $('#tuesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$tueshours->format('i') / 60 + (int)$tueshours->format('H'); echo $totalhours; ?> hours</span>");
+              $('#wednesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$wedhours->format('i') / 60 + (int)$wedhours->format('H'); echo $totalhours; ?> hours</span>");
+              $('#thursday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$thurshours->format('i') / 60 + (int)$thurshours->format('H'); echo $totalhours; ?> hours</span>");
+              $('#friday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$frihours->format('i') / 60 + (int)$frihours->format('H'); echo $totalhours; ?> hours</span>");
+              $('#saturday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sathours->format('i') / 60 + (int)$sathours->format('H'); echo $totalhours; ?> hours</span>");
+            </script>
         </table>
       </div>
     </div>
