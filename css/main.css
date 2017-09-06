@@ -153,6 +153,7 @@ a.control.button.active, a.control.button:hover, a.control.button.focus, a.contr
   color: #717171;
   text-decoration: none;
   padding-left: 2px;
+  display: block;
 }
 .dropdown-menu.show > li:hover {
   background-color: #717171;
