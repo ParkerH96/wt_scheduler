@@ -38,10 +38,6 @@
   </head>
   <body>
     <div id="scheduler">
-      <?php if($admin_tag == 1) { ?>
-      <button class="btn btn-success" data-toggle="modal" data-target="#AddShift">Add Shift</button>
-    <?php } ?>
-
     <?php
           if(isset($_GET['week'])) {
             $week = (int) $_GET['week'];
@@ -51,18 +47,15 @@
             $week = (int) date('w');
           }
                 /* "next week" control */
-          $next_week_link = '<a href="?week='.($week + 1).'" class="control">Next Week >></a>';
+          $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
 
           /* "previous week" control */
-          $previous_week_link = '<a href="?week='.($week - 1).'" class="control"><< 	Previous Week</a>';
+          $previous_week_link = '<a type="button" style="width:34%" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
 
           /* bringing the controls together */
-          $controls = '<form method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
-
-          echo $controls;
+          $controls = '<form style="display:inline" class="week-control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
        ?>
-
-      <hr>
+       <br>
       <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
           include 'connection.php';
@@ -74,7 +67,19 @@
         ?>
         <table style="width: 100%;" class="schedule-table">
           <tr class="week-days">
-            <th style="background-color: white;"></th>
+            <th style="background-color: white; vertical-align: bottom;">
+              <?php if($admin_tag == 1) { ?>
+              <div class="dropdown new" style="display:inline-block">
+                <button class="btn btn-default dropdown-toggle new-button btn-sm" type="button" data-toggle="dropdown">New
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Employee</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#AddShift">Shift</a></li>
+                </ul>
+              </div>
+                  <?php } ?>
+              <?php echo $controls; ?>
+            </th>
 
             <th id="sunday-header">Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
 
@@ -91,7 +96,13 @@
             <th id="saturday-header">Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-6+ (7*($weekofmonth-$week))).' days')); ?></th>
           </tr>
           <?php
-            $sunhours = $monhours = $tueshours = $wedhours = $thurshours = $frihours = $sathours = new DateTime('00:00:00');
+            $sunhours = new DateTime('00:00:00');
+            $monhours = new DateTime('00:00:00');
+            $tueshours = new DateTime('00:00:00');
+            $wedhours = new DateTime('00:00:00');
+            $thurshours = new DateTime('00:00:00');
+            $frihours = new DateTime('00:00:00');
+            $sathours = new DateTime('00:00:00');
 
             while($current_row = $employees->fetch_assoc()){  ?>
               <tr>
@@ -127,7 +138,6 @@
                           </p>
                         </td>
 
-
                         <?php
                         $datetime = new DateTime($row['start_time']);
                         $datetime1 = new DateTime($row['end_time']);
@@ -156,6 +166,7 @@
                             $sathours->add($datetime->diff($datetime1));
                             break;
                         }
+
                       }
                     }
                     else {  ?>
