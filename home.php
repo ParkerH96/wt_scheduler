@@ -2,6 +2,23 @@
 <html>
   <head>
     <?php include 'session.php'; ?>
+    <?php
+          if(isset($_GET['week'])) {
+            $week = (int) $_GET['week'];
+          }
+          else {
+
+            $week = (int) date('w');
+          }
+                /* "next week" control */
+          $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
+
+          /* "previous week" control */
+          $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
+
+          /* bringing the controls together */
+          $controls = '<form class="week-control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
+       ?>
     <meta charset="utf-8">
     <title>WT Scheduler</title>
 
@@ -38,23 +55,20 @@
   </head>
   <body>
     <div id="scheduler">
-    <?php
-          if(isset($_GET['week'])) {
-            $week = (int) $_GET['week'];
-          }
-          else {
+      <div class="control-bar">
+        <?php if($admin_tag == 1) { ?>
+        <div class="dropdown new" style="display:inline-block">
+          <a class="btn btn-default dropdown-toggle control button btn-sm" type="button" data-toggle="dropdown"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;New
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Employee</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#AddShift">Shift</a></li>
+          </ul>
+        </div>
+            <?php } ?>
+        <?php echo $controls; ?>
+      </div>
 
-            $week = (int) date('w');
-          }
-                /* "next week" control */
-          $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
-
-          /* "previous week" control */
-          $previous_week_link = '<a type="button" style="width:34%" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
-
-          /* bringing the controls together */
-          $controls = '<form style="display:inline" class="week-control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
-       ?>
        <br>
       <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
         <?php
@@ -67,19 +81,7 @@
         ?>
         <table style="width: 100%;" class="schedule-table">
           <tr class="week-days">
-            <th style="background-color: white; vertical-align: bottom;">
-              <?php if($admin_tag == 1) { ?>
-              <div class="dropdown new" style="display:inline-block">
-                <button class="btn btn-default dropdown-toggle new-button btn-sm" type="button" data-toggle="dropdown">New
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Employee</a></li>
-                  <li><a href="#" data-toggle="modal" data-target="#AddShift">Shift</a></li>
-                </ul>
-              </div>
-                  <?php } ?>
-              <?php echo $controls; ?>
-            </th>
+            <th style="background-color: white; vertical-align: bottom;"></th>
 
             <th id="sunday-header">Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
 

@@ -126,28 +126,24 @@ td a.add-item i {
   height: 3rem;
   line-height: 3rem;
 }
-.control.button {
+a.control.button {
   text-decoration: none;
-  color: #717171;
-  background-color: #ece9e9;
-}
-.new-button {
-  text-decoration: none;
-  color: #717171;
-  background-color: #f0eeee;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #717171;
+  color: white;
+  background-color: #333;
 }
 .dropdown.new {
-      padding-bottom: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 1rem;
 }
-.btn-primary.active, .btn-primary:hover, .btn-primary.focus, .btn-primary:focus, .btn-primary:active, .show>.btn-primary.dropdown-toggle {
+a.control.button.active, a.control.button:hover, a.control.button.focus, a.control.button:focus, a.control.button:active, a.control.button.show>.dropdown-toggle {
   text-decoration: none;
-  color: #717171;
-  background-color: #ece9e9;
+  color: white;
+  background-color: #333;
   box-shadow: none;
-  border-color: #ece9e9;
+  border-color: #333;
+  outline: none 0;
+  cursor: pointer;
 }
 .dropdown-menu.show {
   background-color: #ece9e9;
@@ -166,4 +162,14 @@ td a.add-item i {
 }
 .dropdown-menu.show li {
   padding: .5rem 0;
+}
+.control-bar {
+  background-color: #333;
+  height: 42px;
+}
+.control-bar form {
+    display:inline;
+    float:right;
+    margin-top: 5px;
+    padding-right: 1rem;
 }
