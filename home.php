@@ -61,7 +61,7 @@
           <a class="btn btn-default dropdown-toggle control button btn-sm" type="button" data-toggle="dropdown"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;New
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Employee</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#AddEmployee">Employee</a></li>
             <li><a href="#" data-toggle="modal" data-target="#AddShift">Shift</a></li>
           </ul>
         </div>
@@ -245,6 +245,41 @@
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Add Shift" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="AddEmployee" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Employee</h4>
+          </div>
+          <form action="add-employee.php" method="post">
+            <div class="modal-body">
+                First Name <input type="text" name="first_name" required><br><br>
+                Last Name <input type="text" name="last_name" required><br><br>
+                Email <input type="text" name="email" required><br><br>
+                Phone Number <input type="number" name="phone_number" required><br><br>
+                Date of Birth <input type="date" name="dob" required><br><br>
+                Username <input type="text" name="username"><br><br>
+                Password <input type="text" name="password"><br><br>
+                Color <input type="color" name="color"><br><br>
+                Role
+                <select name="admin_tag">
+                  <option value="0">Employee</option>
+                  <option value="1">Admin</option>
+                </select>
+                <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
+            </div>
+            <div class="modal-footer">
+              <input type="submit" name="submit" value="Add Employee" class="btn btn-success">
             </div>
           </form>
         </div>
