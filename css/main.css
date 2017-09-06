@@ -95,7 +95,8 @@ button:hover {
 .schedule-table th {
   border-bottom: 1px solid #d4d4d4;
   background-color: #ece9e9;
-    color: #717171;
+  color: #717171;
+  font-size: 1vw;
 }
 .schedule-table td {
   border: 1px solid #d4d4d4;
