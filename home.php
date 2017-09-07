@@ -65,21 +65,26 @@
             <li><a href="#" data-toggle="modal" data-target="#AddShift">Shift</a></li>
           </ul>
         </div>
-            <?php } ?>
+        <?php } ?>
         <?php echo $controls; ?>
+        <div class="schedule-type">
+          <input id="toggle-on" class="toggle toggle-left" type="radio" name="schedule-type" value="Week" checked="checked">
+          <label class="btn btn-default btn-sm control button" for="toggle-on">Week</label>
+          <input class="toggle toggle-right" id="toggle-off" type="radio" name="schedule-type" value="Month">
+          <label class="btn btn-default btn-sm control button" for="toggle-off">Month</label>
+        </div>
       </div>
+      <br>
+      <?php
+        include 'connection.php';
 
-       <br>
-      <div class="container-fluid schedule-view" style="padding-left: 2px; padding-right: 2px;">
-        <?php
-          include 'connection.php';
-
-          $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
-          $date = date("Y-m-d");
-          $weekofmonth = date('w');
-          $dayofweek = date('w', strtotime($date));
-        ?>
-        <table style="width: 100%;" class="schedule-table">
+        $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
+        $date = date("Y-m-d");
+        $weekofmonth = date('w');
+        $dayofweek = date('w', strtotime($date));
+      ?>
+      <div class="container-fluid week schedule-view" style="padding-left: 2px; padding-right: 2px;">
+        <table class="schedule-table">
           <tr class="week-days">
             <th style="background-color: white; vertical-align: bottom;"></th>
 
@@ -191,6 +196,81 @@
               $('#friday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$frihours->format('i') / 60 + (int)$frihours->format('H'); echo $totalhours; ?> hours</span>");
               $('#saturday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sathours->format('i') / 60 + (int)$sathours->format('H'); echo $totalhours; ?> hours</span>");
             </script>
+        </table>
+      </div>
+      <div class="container-fluid month schedule-view" style="display:none;padding-left: 2px; padding-right: 2px;">
+        <table class="schedule-table">
+          <tr class="month-days">
+            <th id="sunday-header">Sunday</th>
+
+            <th id="monday-header">Monday</th>
+
+            <th id="tuesday-header">Tuesday</th>
+
+            <th id="wednesday-header">Wednesday</th>
+
+            <th id="thursday-header">Thursday</th>
+
+            <th id="friday-header">Friday</th>
+
+            <th id="saturday-header">Saturday</th>
+          </tr>
+          <?php
+              $dateComponents = getdate();
+              $month = $dateComponents['mon'];
+              $year = $dateComponents['year'];
+              $firstDayOfMonth = mktime(0,0,0,$month,1,$year);
+              $numberDays = date('t',$firstDayOfMonth);
+              $dateComponents = getdate($firstDayOfMonth);
+              $monthName = $dateComponents['month'];
+              $dayOfWeek = $dateComponents['wday'];
+              $currentDay = 1;
+
+              echo "<tr>";
+
+              if ($dayOfWeek > 0) {
+                  echo "<td colspan='$dayOfWeek'>&nbsp;</td>";
+                    /* you're cute */
+              }
+
+              while ($currentDay <= $numberDays) {
+
+                   if ($dayOfWeek == 7) {
+                        $dayOfWeek = 0;
+                        echo "</tr><tr>";
+                   }
+
+                   $timestamp = mktime(0, 0, 0, date('n'), $currentDay);
+                   $currentDate = date('Y-m-d', $timestamp);
+
+                   echo "<td class='day' rel='$currentDate'>";
+
+                   $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
+
+                   echo "<div style='color: #717171'vertical-align='top' align='right'>". $currentDay ."</div>";
+
+                   if($shift->num_rows > 0){
+                     while($row = $shift->fetch_assoc()) {
+
+                       $id_employee = $row["employee_id"];
+
+                       $employee = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = '".$id_employee."' ");
+
+                       while($current_employee = $employee->fetch_assoc()){
+
+                         echo "<div class='month-shift-block' style='background-color:" . $current_employee["color"] . "'>" . date('h:i A', strtotime($row["start_time"])). " - " . date('h:i A', strtotime($row["end_time"])) . "  " . $current_employee["first_name"] . " " . $current_employee["last_name"] . "</div>";
+                       }
+                     }
+                   }
+
+                   echo "</td>";
+
+                   $currentDay++;
+                   $dayOfWeek++;
+              }
+
+              echo "</tr>"
+          ?>
         </table>
       </div>
     </div>
@@ -350,6 +430,16 @@
           $('#AddShift select option[value=' + employee_id + ']').attr('selected', 'selected');
         });
 
+        $('input[name=schedule-type]').click(function(){
+          if($(this).attr('value') == 'Week'){
+            $('.month.schedule-view').hide();
+            $('.week.schedule-view').show();
+          }
+          else {
+            $('.week.schedule-view').hide();
+            $('.month.schedule-view').show();
+          }
+        });
       });
     </script>
   </body>

@@ -84,13 +84,16 @@ ul.navbar-nav li a {
 button:hover {
   cursor: pointer;
 }
+        /*=============Schedule Style=============
+        ==========================================*/
 .schedule-table{
   table-layout: fixed;
   empty-cells: show;
+  width: 100%;
 }
 .schedule-table th, .schedule-table td {
   border-collapse: collapse;
-    text-align: center;
+  text-align: center;
 }
 .schedule-table th {
   border-bottom: 1px solid #d4d4d4;
@@ -137,7 +140,7 @@ a.control.button {
   margin-top: 5px;
   padding-left: 1rem;
 }
-a.control.button.active, a.control.button:hover, a.control.button.focus, a.control.button:focus, a.control.button:active, a.control.button.show>.dropdown-toggle {
+.control.button.active, a.control.button:hover, a.control.button.focus, a.control.button:focus, a.control.button:active, a.control.button.show>.dropdown-toggle {
   text-decoration: none;
   color: white;
   background-color: #333;
@@ -174,4 +177,69 @@ a.control.button.active, a.control.button:hover, a.control.button.focus, a.contr
     float:right;
     margin-top: 5px;
     padding-right: 1rem;
+}
+.schedule-type {
+  float: right;
+  margin-top: 5px;
+  color: white;
+  padding-right: 1rem;
+  display: inline;
+}
+.month.schedule-view td {
+  height: 10rem;
+  font-size: .9vw;
+  vertical-align: top;
+}
+.month-shift-block {
+  padding: 0 5px;
+  white-space: pre;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: .5rem;
+}
+.schedule-type input[type="radio"].toggle {
+    display: none;
+}
+
+.schedule-type input[type="radio"].toggle:checked + label {
+    background-image: -moz-linear-gradient(bottom,#969696,#727272);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#969696),#727272);
+    background-image: -webkit-linear-gradient(bottom,#969696,#727272);
+    background-image: -o-linear-gradient(bottom,#969696,#727272);
+    background-image: linear-gradient(to top,#969696,#727272);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff969696',endColorstr='#ff727272',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 6px rgba(41, 41, 41, 0.2),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 6px 0 rgba(41, 41, 41, 0.2),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 6px rgba(41, 41, 41, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: default;
+    border-color: transparent;
+    text-shadow: 0 1px 1px rgba(40, 40, 40, 0.75);
+}
+
+.schedule-type input[type="radio"].toggle:checked + label.btn:hover {
+    background-color: inherit;
+    background-position: 0 0;
+    -webkit-transition: none;
+    -moz-trainsition: none;
+    transition: none;
+}
+
+.schedule-type input[type="radio"].toggle-left + label {
+    border-right: 0;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-top-right-radius: 0;
+    -moz-border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.schedule-type input[type="radio"].toggle-right + label {
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-top-left-radius: 0;
+    -moz-border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
