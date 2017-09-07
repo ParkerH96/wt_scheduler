@@ -5,19 +5,31 @@
     <?php
           if(isset($_GET['week'])) {
             $week = (int) $_GET['week'];
+
+            $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
+
+            $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
+
+            $controls = '<form class="week control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
+          }
+          else if(isset($_GET['month'])){
+            $month = (int) $_GET['month'];
+
+            $next_month_link = '<a type="button" class="btn btn-default btn-sm control button" href="?month='.($month + 1).'">Next Month</a>';
+
+            $previous_month_link = '<a type="button" class="btn btn-default btn-sm control button" href="?month='.($month - 1).'" class="control button">Prev Month</a>';
+
+            $controls = '<form class="month control-form" method="get">'.$previous_month_link.'     '.$next_month_link.' </form>';
           }
           else {
-
             $week = (int) date('w');
+
+            $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
+
+            $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
+
+            $controls = '<form class="week-control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
           }
-                /* "next week" control */
-          $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
-
-          /* "previous week" control */
-          $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
-
-          /* bringing the controls together */
-          $controls = '<form class="week-control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
        ?>
     <meta charset="utf-8">
     <title>WT Scheduler</title>
@@ -68,9 +80,9 @@
         <?php } ?>
         <?php echo $controls; ?>
         <div class="schedule-type">
-          <input id="toggle-on" class="toggle toggle-left" type="radio" name="schedule-type" value="Week" checked="checked">
+          <input id="toggle-on" class="toggle toggle-left" type="radio" name="schedule-type" value="Week" <?php if(!isset($_GET['month'])) {?> checked="checked" <?php } ?>>
           <label class="btn btn-default btn-sm control button" for="toggle-on">Week</label>
-          <input class="toggle toggle-right" id="toggle-off" type="radio" name="schedule-type" value="Month">
+          <input class="toggle toggle-right" id="toggle-off" type="radio" name="schedule-type" value="Month" <?php if(isset($_GET['month'])) {?> checked="checked" <?php } ?>>
           <label class="btn btn-default btn-sm control button" for="toggle-off">Month</label>
         </div>
       </div>
@@ -82,198 +94,203 @@
         $date = date("Y-m-d");
         $weekofmonth = date('w');
         $dayofweek = date('w', strtotime($date));
+
+        if(isset($_GET['week']) || !isset($_GET['week']) && !isset($_GET['month'])) {
       ?>
-      <div class="container-fluid week schedule-view" style="padding-left: 2px; padding-right: 2px;">
-        <table class="schedule-table">
-          <tr class="week-days">
-            <th style="background-color: white; vertical-align: bottom;"></th>
+        <div class="container-fluid week schedule-view" style="padding-left: 2px; padding-right: 2px;">
+          <table class="schedule-table">
+            <tr class="week-days">
+              <th style="background-color: white; vertical-align: bottom;"></th>
 
-            <th id="sunday-header">Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="sunday-header">Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th id="monday-header">Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-1+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="monday-header">Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-1+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th id="tuesday-header">Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-2+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="tuesday-header">Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-2+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th id="wednesday-header">Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($dayofweek-3+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="wednesday-header">Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($dayofweek-3+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th id="thursday-header">Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-4+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="thursday-header">Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-4+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th id="friday-header">Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-5+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="friday-header">Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-5+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-            <th id="saturday-header">Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-6+ (7*($weekofmonth-$week))).' days')); ?></th>
-          </tr>
-          <?php
-            $sunhours = new DateTime('00:00:00');
-            $monhours = new DateTime('00:00:00');
-            $tueshours = new DateTime('00:00:00');
-            $wedhours = new DateTime('00:00:00');
-            $thurshours = new DateTime('00:00:00');
-            $frihours = new DateTime('00:00:00');
-            $sathours = new DateTime('00:00:00');
+              <th id="saturday-header">Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-6+ (7*($weekofmonth-$week))).' days')); ?></th>
+            </tr>
+            <?php
+              $sunhours = new DateTime('00:00:00');
+              $monhours = new DateTime('00:00:00');
+              $tueshours = new DateTime('00:00:00');
+              $wedhours = new DateTime('00:00:00');
+              $thurshours = new DateTime('00:00:00');
+              $frihours = new DateTime('00:00:00');
+              $sathours = new DateTime('00:00:00');
 
-            while($current_row = $employees->fetch_assoc()){  ?>
-              <tr>
-                <th <?php if($current_row['employee_id'] == $employee_id) { echo 'style="background-color: #28a745 !important; color: #fff !important;"'; } ?> id="employee-<?php echo $current_row['employee_id']; ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name']; ?></th>
+              while($current_row = $employees->fetch_assoc()){  ?>
+                <tr>
+                  <th <?php if($current_row['employee_id'] == $employee_id) { echo 'style="background-color: #28a745 !important; color: #fff !important;"'; } ?> id="employee-<?php echo $current_row['employee_id']; ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name']; ?></th>
 
-                  <?php
+                    <?php
 
-                  $hours = new DateTime('00:00:00');
+                    $hours = new DateTime('00:00:00');
 
-                  for ($i=0; $i < 7; $i++) {
-                    include 'connection.php';
+                    for ($i=0; $i < 7; $i++) {
+                      include 'connection.php';
 
-                    $employee_id1 = $current_row['employee_id'];
+                      $employee_id1 = $current_row['employee_id'];
 
-                    $shift_date = (string) date('Y-m-d', strtotime('-'.($dayofweek-$i+(7*($weekofmonth-$week))).' days'));
-                    $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id1 AND shift_date = '".$shift_date."' ");
+                      $shift_date = (string) date('Y-m-d', strtotime('-'.($dayofweek-$i+(7*($weekofmonth-$week))).' days'));
+                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id1 AND shift_date = '".$shift_date."' ");
 
-                    if($shift->num_rows > 0){
-                      while($row = $shift->fetch_assoc()) {?>
+                      if($shift->num_rows > 0){
+                        while($row = $shift->fetch_assoc()) {?>
 
-                        <td class="shift-block" style="background-color: <?php echo $current_row['color'] ?>">
-                          <p>
-                            <?php if((int)date('H', strtotime($row['start_time'])) % 12 != 0) { echo (int)date('H', strtotime($row['start_time'])) % 12; } else { echo 12; } echo date(':i A', strtotime($row['start_time'])) ?>
-                              - <?php if((int)date('H', strtotime($row['end_time'])) % 12 != 0) { echo (int)date('H', strtotime($row['end_time'])) % 12; } else { echo 12; } echo date(':i A', strtotime($row['end_time'])); ?>
-                              <?php if($admin_tag == 1) { ?>
-                              <a class="remove-item" data-week="<?php echo $week; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                              </a>
-                              <a class="edit-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $row['shift_date']; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-start-time="<?php echo $row['start_time']; ?>" data-end-time="<?php echo $row['end_time']; ?>" data-toggle="modal" data-target="#EditShift">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                              </a>
-                            <?php } ?>
-                          </p>
-                        </td>
+                          <td class="shift-block" style="background-color: <?php echo $current_row['color'] ?>">
+                            <p>
+                              <?php if((int)date('H', strtotime($row['start_time'])) % 12 != 0) { echo (int)date('H', strtotime($row['start_time'])) % 12; } else { echo 12; } echo date(':i A', strtotime($row['start_time'])) ?>
+                                - <?php if((int)date('H', strtotime($row['end_time'])) % 12 != 0) { echo (int)date('H', strtotime($row['end_time'])) % 12; } else { echo 12; } echo date(':i A', strtotime($row['end_time'])); ?>
+                                <?php if($admin_tag == 1) { ?>
+                                <a class="remove-item" data-week="<?php echo $week; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-toggle="modal" data-target="#DoubleCheck">
+                                  <i class="fa fa-times" aria-hidden="true"></i>
+                                </a>
+                                <a class="edit-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $row['shift_date']; ?>" data-shift-id="<?php echo $row['shift_id']; ?>" data-start-time="<?php echo $row['start_time']; ?>" data-end-time="<?php echo $row['end_time']; ?>" data-toggle="modal" data-target="#EditShift">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                              <?php } ?>
+                            </p>
+                          </td>
 
-                        <?php
-                        $datetime = new DateTime($row['start_time']);
-                        $datetime1 = new DateTime($row['end_time']);
-                        $hours->add($datetime->diff($datetime1));
+                          <?php
+                          $datetime = new DateTime($row['start_time']);
+                          $datetime1 = new DateTime($row['end_time']);
+                          $hours->add($datetime->diff($datetime1));
 
-                        switch ($i) {
-                          case 0:
-                            $sunhours->add($datetime->diff($datetime1));
-                            break;
-                          case 1:
-                            $monhours->add($datetime->diff($datetime1));
-                            break;
-                          case 2:
-                            $tueshours->add($datetime->diff($datetime1));
-                            break;
-                          case 3:
-                            $wedhours->add($datetime->diff($datetime1));
-                            break;
-                          case 4:
-                            $thurshours->add($datetime->diff($datetime1));
-                            break;
-                          case 5:
-                            $frihours->add($datetime->diff($datetime1));
-                            break;
-                          case 6:
-                            $sathours->add($datetime->diff($datetime1));
-                            break;
+                          switch ($i) {
+                            case 0:
+                              $sunhours->add($datetime->diff($datetime1));
+                              break;
+                            case 1:
+                              $monhours->add($datetime->diff($datetime1));
+                              break;
+                            case 2:
+                              $tueshours->add($datetime->diff($datetime1));
+                              break;
+                            case 3:
+                              $wedhours->add($datetime->diff($datetime1));
+                              break;
+                            case 4:
+                              $thurshours->add($datetime->diff($datetime1));
+                              break;
+                            case 5:
+                              $frihours->add($datetime->diff($datetime1));
+                              break;
+                            case 6:
+                              $sathours->add($datetime->diff($datetime1));
+                              break;
+                          }
+
                         }
-
                       }
-                    }
-                    else {  ?>
-                      <td><?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
-                        <i class="fa fa-plus" aria-hidden="true"></i></a><?php } ?></td>
-                <?php
-                    }
-                  } ?>
-                  <script type="text/javascript">
-                    $('#employee-<?php echo $current_row['employee_id'] ?>-header').append("<br /><span class='employee-hours'><?php $total_hours = (int)$hours->format('i') / 60 + (int)$hours->format('H'); echo $total_hours; ?> hours</span>");
-                  </script>
-              </tr>
-      <?php } ?>
-            <script type="text/javascript">
-              $('#sunday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sunhours->format('i') / 60 + (int)$sunhours->format('H'); echo $totalhours; ?> hours</span>");
-              $('#monday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$monhours->format('i') / 60 + (int)$monhours->format('H'); echo $totalhours; ?> hours</span>");
-              $('#tuesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$tueshours->format('i') / 60 + (int)$tueshours->format('H'); echo $totalhours; ?> hours</span>");
-              $('#wednesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$wedhours->format('i') / 60 + (int)$wedhours->format('H'); echo $totalhours; ?> hours</span>");
-              $('#thursday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$thurshours->format('i') / 60 + (int)$thurshours->format('H'); echo $totalhours; ?> hours</span>");
-              $('#friday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$frihours->format('i') / 60 + (int)$frihours->format('H'); echo $totalhours; ?> hours</span>");
-              $('#saturday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sathours->format('i') / 60 + (int)$sathours->format('H'); echo $totalhours; ?> hours</span>");
-            </script>
-        </table>
-      </div>
-      <div class="container-fluid month schedule-view" style="display:none;padding-left: 2px; padding-right: 2px;">
-        <table class="schedule-table">
-          <tr class="month-days">
-            <th id="sunday-header">Sunday</th>
+                      else {  ?>
+                        <td><?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
+                          <i class="fa fa-plus" aria-hidden="true"></i></a><?php } ?></td>
+                  <?php
+                      }
+                    } ?>
+                    <script type="text/javascript">
+                      $('#employee-<?php echo $current_row['employee_id'] ?>-header').append("<br /><span class='employee-hours'><?php $total_hours = (int)$hours->format('i') / 60 + (int)$hours->format('H'); echo $total_hours; ?> hours</span>");
+                    </script>
+                </tr>
+        <?php } ?>
+              <script type="text/javascript">
+                $('#sunday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sunhours->format('i') / 60 + (int)$sunhours->format('H'); echo $totalhours; ?> hours</span>");
+                $('#monday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$monhours->format('i') / 60 + (int)$monhours->format('H'); echo $totalhours; ?> hours</span>");
+                $('#tuesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$tueshours->format('i') / 60 + (int)$tueshours->format('H'); echo $totalhours; ?> hours</span>");
+                $('#wednesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$wedhours->format('i') / 60 + (int)$wedhours->format('H'); echo $totalhours; ?> hours</span>");
+                $('#thursday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$thurshours->format('i') / 60 + (int)$thurshours->format('H'); echo $totalhours; ?> hours</span>");
+                $('#friday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$frihours->format('i') / 60 + (int)$frihours->format('H'); echo $totalhours; ?> hours</span>");
+                $('#saturday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sathours->format('i') / 60 + (int)$sathours->format('H'); echo $totalhours; ?> hours</span>");
+              </script>
+          </table>
+        </div>
+    <?php }
+          else{ ?>
+        <div class="container-fluid month schedule-view" style="padding-left: 2px; padding-right: 2px;">
+          <table class="schedule-table">
+            <tr class="month-days">
+              <th id="sunday-header">Sunday</th>
 
-            <th id="monday-header">Monday</th>
+              <th id="monday-header">Monday</th>
 
-            <th id="tuesday-header">Tuesday</th>
+              <th id="tuesday-header">Tuesday</th>
 
-            <th id="wednesday-header">Wednesday</th>
+              <th id="wednesday-header">Wednesday</th>
 
-            <th id="thursday-header">Thursday</th>
+              <th id="thursday-header">Thursday</th>
 
-            <th id="friday-header">Friday</th>
+              <th id="friday-header">Friday</th>
 
-            <th id="saturday-header">Saturday</th>
-          </tr>
-          <?php
-              $dateComponents = getdate();
-              $month = $dateComponents['mon'];
-              $year = $dateComponents['year'];
-              $firstDayOfMonth = mktime(0,0,0,$month,1,$year);
-              $numberDays = date('t',$firstDayOfMonth);
-              $dateComponents = getdate($firstDayOfMonth);
-              $monthName = $dateComponents['month'];
-              $dayOfWeek = $dateComponents['wday'];
-              $currentDay = 1;
+              <th id="saturday-header">Saturday</th>
+            </tr>
+            <?php
+                $dateComponents = getdate(strtotime('+'.($month - (int) date('m')).' months'));
+                $month = $dateComponents['mon'];
+                $year = $dateComponents['year'];
+                $firstDayOfMonth = mktime(0,0,0,$month,1,$year);
+                $numberDays = date('t',$firstDayOfMonth);
+                $dateComponents = getdate($firstDayOfMonth);
+                $monthName = $dateComponents['month'];
+                $dayOfWeek = $dateComponents['wday'];
+                $currentDay = 1;
 
-              echo "<tr>";
+                echo "<tr>";
 
-              if ($dayOfWeek > 0) {
-                  echo "<td colspan='$dayOfWeek'>&nbsp;</td>";
-                    /* you're cute */
-              }
+                if ($dayOfWeek > 0) {
+                    echo "<td colspan='$dayOfWeek'>&nbsp;</td>";
+                      /* you're cute */
+                }
 
-              while ($currentDay <= $numberDays) {
+                while ($currentDay <= $numberDays) {
 
-                   if ($dayOfWeek == 7) {
-                        $dayOfWeek = 0;
-                        echo "</tr><tr>";
-                   }
+                     if ($dayOfWeek == 7) {
+                          $dayOfWeek = 0;
+                          echo "</tr><tr>";
+                     }
 
-                   $timestamp = mktime(0, 0, 0, date('n'), $currentDay);
-                   $currentDate = date('Y-m-d', $timestamp);
+                     $timestamp = mktime(0, 0, 0, $month, $currentDay);
+                     $currentDate = date('Y-m-d', $timestamp);
 
-                   echo "<td class='day' rel='$currentDate'>";
+                     echo "<td class='day' rel='$currentDate'>";
 
-                   $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
+                     $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
 
-                   echo "<div style='color: #717171'vertical-align='top' align='right'>". $currentDay ."</div>";
+                     echo "<div style='color: #717171'vertical-align='top' align='right'>". $currentDay ."</div>";
 
-                   if($shift->num_rows > 0){
-                     while($row = $shift->fetch_assoc()) {
+                     if($shift->num_rows > 0){
+                       while($row = $shift->fetch_assoc()) {
 
-                       $id_employee = $row["employee_id"];
+                         $id_employee = $row["employee_id"];
 
-                       $employee = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = '".$id_employee."' ");
+                         $employee = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = '".$id_employee."' ");
 
-                       while($current_employee = $employee->fetch_assoc()){
+                         while($current_employee = $employee->fetch_assoc()){
 
-                         echo "<div class='month-shift-block' style='background-color:" . $current_employee["color"] . "'>" . date('h:i A', strtotime($row["start_time"])). " - " . date('h:i A', strtotime($row["end_time"])) . "  " . $current_employee["first_name"] . " " . $current_employee["last_name"] . "</div>";
+                           echo "<div class='month-shift-block' style='background-color:" . $current_employee["color"] . "'>" . date('h:i A', strtotime($row["start_time"])). " - " . date('h:i A', strtotime($row["end_time"])) . "  " . $current_employee["first_name"] . " " . $current_employee["last_name"] . "</div>";
+                         }
                        }
                      }
-                   }
 
-                   echo "</td>";
+                     echo "</td>";
 
-                   $currentDay++;
-                   $dayOfWeek++;
-              }
+                     $currentDay++;
+                     $dayOfWeek++;
+                }
 
-              echo "</tr>"
-          ?>
-        </table>
-      </div>
-    </div>
+                echo "</tr>"
+            ?>
+          </table>
+        </div>
+        </div>
+  <?php } ?>
 
     <!-- Modals -->
     <div id="DoubleCheck" class="modal fade" role="dialog">
@@ -432,12 +449,12 @@
 
         $('input[name=schedule-type]').click(function(){
           if($(this).attr('value') == 'Week'){
-            $('.month.schedule-view').hide();
-            $('.week.schedule-view').show();
+            var url = window.location.href.split("?");
+            window.location.href = url[0] + "?week=<?php echo (int) date('w') ?>";
           }
           else {
-            $('.week.schedule-view').hide();
-            $('.month.schedule-view').show();
+            var url = window.location.href.split("?");
+            window.location.href = url[0] + "?month=<?php echo (int) date('m') ?>";
           }
         });
       });
