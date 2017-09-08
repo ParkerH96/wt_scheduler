@@ -109,25 +109,25 @@
             <tr class="week-days">
               <th style="background-color: white; vertical-align: bottom;"></th>
 
-              <th id="sunday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important;<?php } ?> ">Sunday<br />
+              <th id="sunday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #dadada;<?php } ?> ">Sunday<br />
                 <?php echo date('m/d/Y', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days')); ?><br /><span class='sunday-header employee-hours'><br></span></th>
 
-              <th id="monday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 1 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Monday<br />
+              <th id="monday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 1 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #dadada;<?php } ?> ">Monday<br />
                 <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-1+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='monday-header employee-hours'><br></span></th>
 
-              <th id="tuesday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 2 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Tuesday<br />
+              <th id="tuesday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 2 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #dadada;<?php } ?> ">Tuesday<br />
                 <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-2+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='tuesday-header employee-hours'><br></span></th>
 
-              <th id="wednesday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 3 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Wednesday<br />
+              <th id="wednesday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 3 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #dadada;<?php } ?> ">Wednesday<br />
                 <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-3+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='wednesday-header employee-hours'><br></span></th>
 
-              <th id="thursday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 4 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Thursday<br />
+              <th id="thursday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 4 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #dadada;<?php } ?> ">Thursday<br />
                  <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-4+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='thursday-header employee-hours'><br></span></th>
 
-              <th id="friday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 5 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Friday<br />
+              <th id="friday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 5 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #dadada;<?php } ?> ">Friday<br />
                 <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-5+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='friday-header employee-hours'><br></span></th>
 
-              <th id="saturday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 6 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Saturday<br />
+              <th id="saturday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 6 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #dadada;<?php } ?> ">Saturday<br />
                 <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-6+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='saturday-header employee-hours'><br></span></th>
             </tr>
             <?php
@@ -141,7 +141,7 @@
 
               while($current_row = $employees->fetch_assoc()){  ?>
                 <tr>
-                  <th <?php if($current_row['employee_id'] == $employee_id) { echo 'style="background-color: #28a745 !important; color: #fff !important;"'; } ?> id="employee-<?php echo $current_row['employee_id']; ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name']; ?></th>
+                  <th <?php if($current_row['employee_id'] == $employee_id) { echo 'style="background-color: #dadada !important;"'; } ?> id="employee-<?php echo $current_row['employee_id']; ?>-header"><?php echo $current_row['first_name'] . " " . $current_row['last_name']; ?></th>
 
                     <?php
 
@@ -273,19 +273,17 @@
                      $timestamp = mktime(0, 0, 0, $month, $currentDay, $year);
                      $currentDate = date('Y-m-d', $timestamp);
 
-                     echo "<td class='day' rel='$currentDate' data-toggle='modal' data-target='#AddShift'>";
+                     echo "<td class='day' rel='$currentDate' data-toggle='modal' data-target='#AddShift'";
+                     if($currentDate == date('Y-m-d')){
+                       echo "style='background-color:#dadada;'>";
+                     }
+                     else {
+                       echo ">";
+                     }
 
                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
 
-                     echo "<div style='";
-
-                     if($currentDate == date('Y-m-d')){
-                       echo 'color:#28a745; font-weight: 600;';
-                     }
-                     else{
-                       echo 'color: #717171';
-                     }
-                     echo "' vertical-align='top' align='right'>". $currentDay ."</div>";
+                     echo "<div style='color: #717171' vertical-align='top' align='right'>". $currentDay ."</div>";
 
                      if($shift->num_rows > 0){
                        while($row = $shift->fetch_assoc()) {
