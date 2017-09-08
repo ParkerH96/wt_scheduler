@@ -250,3 +250,23 @@ a.control.button {
   padding: 0 5px;
   vertical-align: middle;
 }
+.time-select, .employee_select, .role_select {
+  -webkit-appearance: button;
+    border-radius: 2px;
+    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    background-position: 93% center;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    padding: 2px 10px;
+    white-space: nowrap;
+    width: 65px;
+}
+.employee_select, .role_select {
+  background-position: 97% center;
+    text-overflow: ellipsis;
+    width: 190px;
+}
+.shift_date, .add-employee-box {
+  background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    border: 1px solid #AAA;
+}

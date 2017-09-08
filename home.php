@@ -348,7 +348,7 @@
           <form action="add-shift.php" method="post">
             <div class="modal-body">
                 Employee
-                <select name="employee_select">
+                <select name="employee_select" class="employee_select">
                   <?php
                     $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
 
@@ -357,8 +357,8 @@
                     }
                   ?>
                 </select><br><br>
-                Day <input type="date" name="shift_date" required><br><br>
-                Start Time <select class="" name="">
+                Day <input type="date" name="shift_date" class="shift_date" required><br><br>
+                Start Time <select class="time-select" name="start_time_hour">
                   <option value="">1</option>
                   <option value="">2</option>
                   <option value="">3</option>
@@ -372,17 +372,17 @@
                   <option value="">11</option>
                   <option value="">12</option>
                 </select> :
-                <select class="" name="">
+                <select class="time-select" name="start_time_min">
                   <option value="">00</option>
                   <option value="">15</option>
                   <option value="">30</option>
                   <option value="">45</option>
                 </select>
-                <select class="" name="">
+                <select class="time-select" name="start_time_am_pm">
                   <option value="">PM</option>
                   <option value="">AM</option>
                 </select><br><br>
-                End Time <select class="" name="">
+                End Time <select class="time-select" name="end_time_hour">
                   <option value="">1</option>
                   <option value="">2</option>
                   <option value="">3</option>
@@ -396,13 +396,13 @@
                   <option value="">11</option>
                   <option value="">12</option>
                 </select> :
-                <select class="" name="">
+                <select class="time-select" name="end_time_min">
                   <option value="">00</option>
                   <option value="">15</option>
                   <option value="">30</option>
                   <option value="">45</option>
                 </select>
-                <select class="" name="">
+                <select class="time-select" name="end_time_am_pm">
                   <option value="">PM</option>
                   <option value="">AM</option>
                 </select><br><br>
@@ -428,16 +428,16 @@
           </div>
           <form action="add-employee.php" method="post">
             <div class="modal-body">
-                First Name <input type="text" name="first_name" required><br><br>
-                Last Name <input type="text" name="last_name" required><br><br>
-                Email <input type="text" name="email" required><br><br>
-                Phone Number <input type="number" name="phone_number" required><br><br>
-                Date of Birth <input type="date" name="dob" required><br><br>
-                Username <input type="text" name="username"><br><br>
-                Password <input type="text" name="password"><br><br>
+                First Name <input type="text" name="first_name" class="add-employee-box" required><br><br>
+                Last Name <input type="text" name="last_name" class="add-employee-box" required><br><br>
+                Email <input type="text" name="email" class="add-employee-box" required><br><br>
+                Phone Number <input type="number" class="add-employee-box" name="phone_number" required><br><br>
+                Date of Birth <input type="date" class="add-employee-box"name="dob" required><br><br>
+                Username <input type="text"  class="add-employee-box" name="username"><br><br>
+                Password <input type="text"class="add-employee-box"  name="password"><br><br>
                 Color <input type="color" name="color"><br><br>
                 Role
-                <select name="admin_tag">
+                <select name="admin_tag" class="role_select">
                   <option value="0">Employee</option>
                   <option value="1">Admin</option>
                 </select>
@@ -464,7 +464,7 @@
           <form action="edit-shift.php" method="post">
             <div class="modal-body">
                 Employee
-                <select name="employee_select">
+                <select name="employee_select" class="employee_select">
                   <?php
                     $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
 
@@ -473,8 +473,8 @@
                     }
                   ?>
                 </select><br><br>
-                Day <input type="date" name="shift_date" required><br><br>
-                Start Time <select class="" name="">
+                Day <input type="date" name="shift_date" class="shift_date" required><br><br>
+                Start Time <select class="time-select" name="start_time_hour">
                   <option value="">1</option>
                   <option value="">2</option>
                   <option value="">3</option>
@@ -488,17 +488,17 @@
                   <option value="">11</option>
                   <option value="">12</option>
                 </select> :
-                <select class="" name="">
+                <select class="time-select" name="start_time_min">
                   <option value="">00</option>
                   <option value="">15</option>
                   <option value="">30</option>
                   <option value="">45</option>
                 </select>
-                <select class="" name="">
+                <select class="time-select" name="start_time_am_pm">
                   <option value="">PM</option>
                   <option value="">AM</option>
                 </select><br><br>
-                End Time <select class="" name="">
+                End Time <select class="time-select" name="end_time_hour">
                   <option value="">1</option>
                   <option value="">2</option>
                   <option value="">3</option>
@@ -512,13 +512,13 @@
                   <option value="">11</option>
                   <option value="">12</option>
                 </select> :
-                <select class="" name="">
+                <select class="time-select" name="end_time_min">
                   <option value="">00</option>
                   <option value="">15</option>
                   <option value="">30</option>
                   <option value="">45</option>
                 </select>
-                <select class="" name="">
+                <select class="time-select" name="end_time_am_pm">
                   <option value="">PM</option>
                   <option value="">AM</option>
                 </select><br><br>
