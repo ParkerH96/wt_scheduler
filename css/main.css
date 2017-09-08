@@ -132,7 +132,7 @@ td a.add-item i {
 }
 a.control.button {
   text-decoration: none;
-  color: white;
+  color: #e8e8e8;
   background-color: #333;
 }
 .dropdown.new {
@@ -142,7 +142,7 @@ a.control.button {
 }
 .control.button.active, a.control.button:hover, a.control.button.focus, a.control.button:focus, a.control.button:active, a.control.button.show>.dropdown-toggle {
   text-decoration: none;
-  color: white;
+  color: #e8e8e8;
   background-color: #333;
   box-shadow: none;
   border-color: #333;
@@ -181,7 +181,7 @@ a.control.button {
 .schedule-type {
   float: right;
   margin-top: 5px;
-  color: white;
+  color: #e8e8e8;
   padding-right: 1rem;
   display: inline;
 }
@@ -202,17 +202,15 @@ a.control.button {
 }
 
 .schedule-type input[type="radio"].toggle:checked + label {
-    background-image: -moz-linear-gradient(bottom,#969696,#727272);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#969696),#727272);
-    background-image: -webkit-linear-gradient(bottom,#969696,#727272);
-    background-image: -o-linear-gradient(bottom,#969696,#727272);
-    background-image: linear-gradient(to top,#969696,#727272);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff969696',endColorstr='#ff727272',GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-image: -moz-linear-gradient(bottom,#969696,#727272) !important;
+    background-image: -webkit-linear-gradient(bottom,#969696,#727272) !important;
+    background-image: -o-linear-gradient(bottom,#969696,#727272) !important;
+    background-image: linear-gradient(to top,#969696,#727272) !important;
     -webkit-box-shadow: inset 0 1px 6px rgba(41, 41, 41, 0.2),0 1px 2px rgba(0,0,0,0.05);
     -moz-box-shadow: inset 0 1px 6px 0 rgba(41, 41, 41, 0.2),0 1px 2px rgba(0,0,0,0.05);
     box-shadow: inset 0 1px 6px rgba(41, 41, 41, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
     cursor: default;
+    background-color: inherit;
     border-color: transparent;
     text-shadow: 0 1px 1px rgba(40, 40, 40, 0.75);
 }
@@ -224,7 +222,6 @@ a.control.button {
     -moz-trainsition: none;
     transition: none;
 }
-
 .schedule-type input[type="radio"].toggle-left + label {
     border-right: 0;
     -webkit-border-top-right-radius: 0;
@@ -233,6 +230,8 @@ a.control.button {
     -moz-border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    cursor: pointer;
+    background-color: #333;
 }
 
 .schedule-type input[type="radio"].toggle-right + label {
@@ -240,11 +239,13 @@ a.control.button {
     -webkit-border-bottom-left-radius: 0;
     -moz-border-top-left-radius: 0;
     -moz-border-bottom-left-radius: 0;
+    cursor: pointer;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    background-color: #333;
 }
 .date-display {
-  color: white;
+  color: #e8e8e8;
   font-weight: 600;
   padding: 0 5px;
   vertical-align: middle;

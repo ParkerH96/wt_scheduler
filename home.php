@@ -90,9 +90,9 @@
         <?php echo $controls; ?>
         <div class="schedule-type">
           <input id="toggle-on" class="toggle toggle-left" type="radio" name="schedule-type" value="Week" <?php if(!isset($_GET['month'])) {?> checked="checked" <?php } ?>>
-          <label class="btn btn-default btn-sm control button" for="toggle-on">Week</label>
+          <label class="btn btn-default btn-sm control button" for="toggle-on" type="button">Week</label>
           <input class="toggle toggle-right" id="toggle-off" type="radio" name="schedule-type" value="Month" <?php if(isset($_GET['month'])) {?> checked="checked" <?php } ?>>
-          <label class="btn btn-default btn-sm control button" for="toggle-off">Month</label>
+          <label class="btn btn-default btn-sm control button" for="toggle-off" type="button">Month</label>
         </div>
       </div>
       <br>
@@ -343,8 +343,8 @@
                   ?>
                 </select><br><br>
                 Day <input type="date" name="shift_date" required><br><br>
-                Start Time <input type="time" name="start_time" required><br><br>
-                End Time <input type="time" name="end_time" required><br><br>
+                Start Time <select name="start_time"><?php include './time-select-options.html'; ?></select><br><br>
+                End Time <select name="end_time"><?php include './time-select-options.html'; ?></select><br><br>
                 <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
             </div>
             <div class="modal-footer">
@@ -413,8 +413,8 @@
                   ?>
                 </select><br><br>
                 Day <input type="date" name="shift_date" required><br><br>
-                Start Time <input type="time" name="start_time" required><br><br>
-                End Time <input type="time" name="end_time" required><br><br>
+                Start Time <select name="start_time"><?php include './time-select-options.html'; ?></select><br><br>
+                End Time <select name="end_time"><?php include './time-select-options.html'; ?></select><br><br> 
                 <input style="display: none;" type="text" name="shift_id">
                 <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
             </div>
