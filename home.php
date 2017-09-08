@@ -273,7 +273,7 @@
                      $timestamp = mktime(0, 0, 0, $month, $currentDay, $year);
                      $currentDate = date('Y-m-d', $timestamp);
 
-                     echo "<td class='day' rel='$currentDate'>";
+                     echo "<td class='day' rel='$currentDate' data-toggle='modal' data-target='#AddShift'>";
 
                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
 
@@ -359,54 +359,59 @@
                 </select><br><br>
                 Day <input type="date" name="shift_date" class="shift_date" required><br><br>
                 Start Time <select class="time-select" name="start_time_hour">
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
-                  <option value="">5</option>
-                  <option value="">6</option>
-                  <option value="">7</option>
-                  <option value="">8</option>
-                  <option value="">9</option>
-                  <option value="">10</option>
-                  <option value="">11</option>
-                  <option value="">12</option>
+                  <option value=01>1</option>
+                  <option value=02>2</option>
+                  <option value=03>3</option>
+                  <option value=04>4</option>
+                  <option value=05>5</option>
+                  <option value=06>6</option>
+                  <option value=07>7</option>
+                  <option value=08>8</option>
+                  <option value=09>9</option>
+                  <option value=10>10</option>
+                  <option value=11>11</option>
+                  <option value=12>12</option>
                 </select> :
                 <select class="time-select" name="start_time_min">
-                  <option value="">00</option>
-                  <option value="">15</option>
-                  <option value="">30</option>
-                  <option value="">45</option>
+                  <option value="00">00</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
                 </select>
                 <select class="time-select" name="start_time_am_pm">
-                  <option value="">PM</option>
-                  <option value="">AM</option>
+                  <option value="PM">PM</option>
+                  <option value="AM">AM</option>
                 </select><br><br>
                 End Time <select class="time-select" name="end_time_hour">
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
-                  <option value="">5</option>
-                  <option value="">6</option>
-                  <option value="">7</option>
-                  <option value="">8</option>
-                  <option value="">9</option>
-                  <option value="">10</option>
-                  <option value="">11</option>
-                  <option value="">12</option>
+                  <option value=01>1</option>
+                  <option value=02>2</option>
+                  <option value=03>3</option>
+                  <option value=04>4</option>
+                  <option value=05>5</option>
+                  <option value=06>6</option>
+                  <option value=07>7</option>
+                  <option value=08>8</option>
+                  <option value=09>9</option>
+                  <option value=10>10</option>
+                  <option value=11>11</option>
+                  <option value=12>12</option>
                 </select> :
                 <select class="time-select" name="end_time_min">
-                  <option value="">00</option>
-                  <option value="">15</option>
-                  <option value="">30</option>
-                  <option value="">45</option>
+                  <option value="00">00</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
                 </select>
                 <select class="time-select" name="end_time_am_pm">
-                  <option value="">PM</option>
-                  <option value="">AM</option>
+                  <option value="PM">PM</option>
+                  <option value="AM">AM</option>
                 </select><br><br>
-                <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
+                <?php if(isset($_GET['month'])) {?>
+                  <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
+                <?php }
+                  else { ?>
+                    <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
+                  <?php }  ?>
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Add Shift" class="btn btn-success">
@@ -475,52 +480,52 @@
                 </select><br><br>
                 Day <input type="date" name="shift_date" class="shift_date" required><br><br>
                 Start Time <select class="time-select" name="start_time_hour">
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
-                  <option value="">5</option>
-                  <option value="">6</option>
-                  <option value="">7</option>
-                  <option value="">8</option>
-                  <option value="">9</option>
-                  <option value="">10</option>
-                  <option value="">11</option>
-                  <option value="">12</option>
+                  <option value=01>1</option>
+                  <option value=02>2</option>
+                  <option value=03>3</option>
+                  <option value=04>4</option>
+                  <option value=05>5</option>
+                  <option value=06>6</option>
+                  <option value=07>7</option>
+                  <option value=08>8</option>
+                  <option value=09>9</option>
+                  <option value=10>10</option>
+                  <option value=11>11</option>
+                  <option value=12>12</option>
                 </select> :
                 <select class="time-select" name="start_time_min">
-                  <option value="">00</option>
-                  <option value="">15</option>
-                  <option value="">30</option>
-                  <option value="">45</option>
+                  <option value="00">00</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
                 </select>
                 <select class="time-select" name="start_time_am_pm">
-                  <option value="">PM</option>
-                  <option value="">AM</option>
+                  <option value="PM">PM</option>
+                  <option value="AM">AM</option>
                 </select><br><br>
                 End Time <select class="time-select" name="end_time_hour">
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
-                  <option value="">5</option>
-                  <option value="">6</option>
-                  <option value="">7</option>
-                  <option value="">8</option>
-                  <option value="">9</option>
-                  <option value="">10</option>
-                  <option value="">11</option>
-                  <option value="">12</option>
+                  <option value=01>1</option>
+                  <option value=02>2</option>
+                  <option value=03>3</option>
+                  <option value=04>4</option>
+                  <option value=05>5</option>
+                  <option value=06>6</option>
+                  <option value=07>7</option>
+                  <option value=08>8</option>
+                  <option value=09>9</option>
+                  <option value=10>10</option>
+                  <option value=11>11</option>
+                  <option value=12>12</option>
                 </select> :
                 <select class="time-select" name="end_time_min">
-                  <option value="">00</option>
-                  <option value="">15</option>
-                  <option value="">30</option>
-                  <option value="">45</option>
+                  <option value="00">00</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
                 </select>
                 <select class="time-select" name="end_time_am_pm">
-                  <option value="">PM</option>
-                  <option value="">AM</option>
+                  <option value="PM">PM</option>
+                  <option value="AM">AM</option>
                 </select><br><br>
                 <input style="display: none;" type="text" name="shift_id">
                 <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
