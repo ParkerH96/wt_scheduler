@@ -109,19 +109,26 @@
             <tr class="week-days">
               <th style="background-color: white; vertical-align: bottom;"></th>
 
-              <th id="sunday-header" >Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="sunday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important;<?php } ?> ">Sunday<br />
+                <?php echo date('m/d/Y', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days')); ?><br /><span class='sunday-header employee-hours'><br></span></th>
 
-              <th id="monday-header">Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-1+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="monday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 1 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Monday<br />
+                <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-1+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='monday-header employee-hours'><br></span></th>
 
-              <th id="tuesday-header">Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-2+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="tuesday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 2 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Tuesday<br />
+                <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-2+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='tuesday-header employee-hours'><br></span></th>
 
-              <th id="wednesday-header">Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($weekofmonth-3+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="wednesday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 3 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Wednesday<br />
+                <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-3+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='wednesday-header employee-hours'><br></span></th>
 
-              <th id="thursday-header">Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-4+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="thursday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 4 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Thursday<br />
+                 <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-4+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='thursday-header employee-hours'><br></span></th>
 
-              <th id="friday-header">Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-5+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="friday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 5 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Friday<br />
+                <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-5+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='friday-header employee-hours'><br></span></th>
 
-              <th id="saturday-header">Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-6+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="saturday-header" style="<?php if(date('m/d/Y', strtotime('-'.($weekofmonth - 6 + (7*($weekofmonth-$week))).' days')) == date('m/d/Y')) { ?> background-color: #28a745; color: white !important; <?php } ?> ">Saturday<br />
+                <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-6+ (7*($weekofmonth-$week))).' days')); ?><br /><span class='saturday-header employee-hours'><br></span></th>
             </tr>
             <?php
               $sunhours = new DateTime('00:00:00');
@@ -209,13 +216,13 @@
                 </tr>
         <?php } ?>
               <script type="text/javascript">
-                $('#sunday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sunhours->format('i') / 60 + (int)$sunhours->format('H'); echo $totalhours; ?> hours</span>");
-                $('#monday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$monhours->format('i') / 60 + (int)$monhours->format('H'); echo $totalhours; ?> hours</span>");
-                $('#tuesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$tueshours->format('i') / 60 + (int)$tueshours->format('H'); echo $totalhours; ?> hours</span>");
-                $('#wednesday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$wedhours->format('i') / 60 + (int)$wedhours->format('H'); echo $totalhours; ?> hours</span>");
-                $('#thursday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$thurshours->format('i') / 60 + (int)$thurshours->format('H'); echo $totalhours; ?> hours</span>");
-                $('#friday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$frihours->format('i') / 60 + (int)$frihours->format('H'); echo $totalhours; ?> hours</span>");
-                $('#saturday-header').append("<br /><span class='employee-hours'><?php $totalhours = (int)$sathours->format('i') / 60 + (int)$sathours->format('H'); echo $totalhours; ?> hours</span>");
+                $('.sunday-header.employee-hours').html("<?php $totalhours = (int)$sunhours->format('i') / 60 + (int)$sunhours->format('H'); echo $totalhours; ?> hours");
+                $('.monday-header.employee-hours').html("<?php $totalhours = (int)$monhours->format('i') / 60 + (int)$monhours->format('H'); echo $totalhours; ?> hours");
+                $('.tuesday-header.employee-hours').html("<?php $totalhours = (int)$tueshours->format('i') / 60 + (int)$tueshours->format('H'); echo $totalhours; ?> hours");
+                $('.wednesday-header.employee-hours').html("<?php $totalhours = (int)$wedhours->format('i') / 60 + (int)$wedhours->format('H'); echo $totalhours; ?> hours");
+                $('.thursday-header.employee-hours').html("<?php $totalhours = (int)$thurshours->format('i') / 60 + (int)$thurshours->format('H'); echo $totalhours; ?> hours");
+                $('.friday-header.employee-hours').html("<?php $totalhours = (int)$frihours->format('i') / 60 + (int)$frihours->format('H'); echo $totalhours; ?> hours");
+                $('.saturday-header.employee-hours').html("<?php $totalhours = (int)$sathours->format('i') / 60 + (int)$sathours->format('H'); echo $totalhours; ?> hours");
               </script>
           </table>
         </div>
@@ -270,7 +277,15 @@
 
                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
 
-                     echo "<div style='color: #717171'vertical-align='top' align='right'>". $currentDay ."</div>";
+                     echo "<div style='";
+
+                     if($currentDate == date('Y-m-d')){
+                       echo 'color:#28a745; font-weight: 600;';
+                     }
+                     else{
+                       echo 'color: #717171';
+                     }
+                     echo "' vertical-align='top' align='right'>". $currentDay ."</div>";
 
                      if($shift->num_rows > 0){
                        while($row = $shift->fetch_assoc()) {
@@ -343,8 +358,54 @@
                   ?>
                 </select><br><br>
                 Day <input type="date" name="shift_date" required><br><br>
-                Start Time <select name="start_time"><?php include './time-select-options.html'; ?></select><br><br>
-                End Time <select name="end_time"><?php include './time-select-options.html'; ?></select><br><br>
+                Start Time <select class="" name="">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                  <option value="">6</option>
+                  <option value="">7</option>
+                  <option value="">8</option>
+                  <option value="">9</option>
+                  <option value="">10</option>
+                  <option value="">11</option>
+                  <option value="">12</option>
+                </select> :
+                <select class="" name="">
+                  <option value="">00</option>
+                  <option value="">15</option>
+                  <option value="">30</option>
+                  <option value="">45</option>
+                </select>
+                <select class="" name="">
+                  <option value="">PM</option>
+                  <option value="">AM</option>
+                </select><br><br>
+                End Time <select class="" name="">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                  <option value="">6</option>
+                  <option value="">7</option>
+                  <option value="">8</option>
+                  <option value="">9</option>
+                  <option value="">10</option>
+                  <option value="">11</option>
+                  <option value="">12</option>
+                </select> :
+                <select class="" name="">
+                  <option value="">00</option>
+                  <option value="">15</option>
+                  <option value="">30</option>
+                  <option value="">45</option>
+                </select>
+                <select class="" name="">
+                  <option value="">PM</option>
+                  <option value="">AM</option>
+                </select><br><br>
                 <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
             </div>
             <div class="modal-footer">
@@ -413,8 +474,54 @@
                   ?>
                 </select><br><br>
                 Day <input type="date" name="shift_date" required><br><br>
-                Start Time <select name="start_time"><?php include './time-select-options.html'; ?></select><br><br>
-                End Time <select name="end_time"><?php include './time-select-options.html'; ?></select><br><br> 
+                Start Time <select class="" name="">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                  <option value="">6</option>
+                  <option value="">7</option>
+                  <option value="">8</option>
+                  <option value="">9</option>
+                  <option value="">10</option>
+                  <option value="">11</option>
+                  <option value="">12</option>
+                </select> :
+                <select class="" name="">
+                  <option value="">00</option>
+                  <option value="">15</option>
+                  <option value="">30</option>
+                  <option value="">45</option>
+                </select>
+                <select class="" name="">
+                  <option value="">PM</option>
+                  <option value="">AM</option>
+                </select><br><br>
+                End Time <select class="" name="">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                  <option value="">6</option>
+                  <option value="">7</option>
+                  <option value="">8</option>
+                  <option value="">9</option>
+                  <option value="">10</option>
+                  <option value="">11</option>
+                  <option value="">12</option>
+                </select> :
+                <select class="" name="">
+                  <option value="">00</option>
+                  <option value="">15</option>
+                  <option value="">30</option>
+                  <option value="">45</option>
+                </select>
+                <select class="" name="">
+                  <option value="">PM</option>
+                  <option value="">AM</option>
+                </select><br><br>
                 <input style="display: none;" type="text" name="shift_id">
                 <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
             </div>
