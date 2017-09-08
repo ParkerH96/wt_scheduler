@@ -6,29 +6,38 @@
           if(isset($_GET['week'])) {
             $week = (int) $_GET['week'];
 
+            $weekofmonth = date('w');
+            $firstDayofWeek = date('M. d', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days'));
+            $lastDayofWeek = date('M. d', strtotime('-'.($weekofmonth - 6 + (7*($weekofmonth-$week))).' days'));
+
             $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
 
             $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
 
-            $controls = '<form class="week control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
+            $controls = '<form class="week control-form" method="get">'.$previous_week_link.'  <span class="date-display">'.$firstDayofWeek.' - '.$lastDayofWeek.'</span>   '.$next_week_link.' </form>';
           }
           else if(isset($_GET['month'])){
             $month = (int) $_GET['month'];
+
+            $MonthDisplay = date('F', strtotime('+'.($month - (int) date('m')).' months'));
 
             $next_month_link = '<a type="button" class="btn btn-default btn-sm control button" href="?month='.($month + 1).'">Next Month</a>';
 
             $previous_month_link = '<a type="button" class="btn btn-default btn-sm control button" href="?month='.($month - 1).'" class="control button">Prev Month</a>';
 
-            $controls = '<form class="month control-form" method="get">'.$previous_month_link.'     '.$next_month_link.' </form>';
+            $controls = '<form class="month control-form" method="get">'.$previous_month_link.'   <span class="date-display">'.$MonthDisplay.'</span>  '.$next_month_link.' </form>';
           }
           else {
             $week = (int) date('w');
+
+            $firstDayofWeek = date('M. d', strtotime('-'.($week).' days'));
+            $lastDayofWeek = date('M. d', strtotime('-'.($week - 6).' days'));
 
             $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
 
             $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
 
-            $controls = '<form class="week-control-form" method="get">'.$previous_week_link.'     '.$next_week_link.' </form>';
+            $controls = '<form class="week control-form" method="get">'.$previous_week_link.'  <span class="date-display">'.$firstDayofWeek.' - '.$lastDayofWeek.'</span>   '.$next_week_link.' </form>';
           }
        ?>
     <meta charset="utf-8">
@@ -91,9 +100,7 @@
         include 'connection.php';
 
         $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
-        $date = date("Y-m-d");
         $weekofmonth = date('w');
-        $dayofweek = date('w', strtotime($date));
 
         if(isset($_GET['week']) || !isset($_GET['week']) && !isset($_GET['month'])) {
       ?>
@@ -102,19 +109,19 @@
             <tr class="week-days">
               <th style="background-color: white; vertical-align: bottom;"></th>
 
-              <th id="sunday-header">Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="sunday-header" >Sunday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days')); ?></th>
 
-              <th id="monday-header">Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-1+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="monday-header">Monday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-1+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-              <th id="tuesday-header">Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-2+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="tuesday-header">Tuesday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-2+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-              <th id="wednesday-header">Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($dayofweek-3+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="wednesday-header">Wednesday<br /><?php echo date('m/d/Y', strtotime('-'.($weekofmonth-3+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-              <th id="thursday-header">Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-4+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="thursday-header">Thursday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-4+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-              <th id="friday-header">Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-5+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="friday-header">Friday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-5+ (7*($weekofmonth-$week))).' days')); ?></th>
 
-              <th id="saturday-header">Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($dayofweek-6+ (7*($weekofmonth-$week))).' days')); ?></th>
+              <th id="saturday-header">Saturday<br /> <?php echo date('m/d/Y', strtotime('-'.($weekofmonth-6+ (7*($weekofmonth-$week))).' days')); ?></th>
             </tr>
             <?php
               $sunhours = new DateTime('00:00:00');
@@ -138,7 +145,7 @@
 
                       $employee_id1 = $current_row['employee_id'];
 
-                      $shift_date = (string) date('Y-m-d', strtotime('-'.($dayofweek-$i+(7*($weekofmonth-$week))).' days'));
+                      $shift_date = (string) date('Y-m-d', strtotime('-'.($weekofmonth-$i+(7*($weekofmonth-$week))).' days'));
                       $shift = $mysqli->query("SELECT * FROM SHIFT WHERE employee_id = $employee_id1 AND shift_date = '".$shift_date."' ");
 
                       if($shift->num_rows > 0){
@@ -256,7 +263,7 @@
                           echo "</tr><tr>";
                      }
 
-                     $timestamp = mktime(0, 0, 0, $month, $currentDay);
+                     $timestamp = mktime(0, 0, 0, $month, $currentDay, $year);
                      $currentDate = date('Y-m-d', $timestamp);
 
                      echo "<td class='day' rel='$currentDate'>";
