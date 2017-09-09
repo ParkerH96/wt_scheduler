@@ -273,7 +273,7 @@
                      $timestamp = mktime(0, 0, 0, $month, $currentDay, $year);
                      $currentDate = date('Y-m-d', $timestamp);
 
-                     echo "<td class='day' rel='$currentDate' data-toggle='modal' data-target='#AddShift'";
+                     echo "<td class='day' rel='$currentDate'";
                      if($currentDate == date('Y-m-d')){
                        echo "style='background-color:#dadada;'>";
                      }
@@ -282,6 +282,8 @@
                      }
 
                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
+
+                     echo "<a class='add-shift-month in-cell-add' data-toggle='modal' data-shift-date='$currentDate' data-target='#AddShift'></a>";
 
                      echo "<div style='color: #717171' vertical-align='top' align='right'>". $currentDay ."</div>";
 
@@ -294,7 +296,9 @@
 
                          while($current_employee = $employee->fetch_assoc()){
 
-                           echo "<div class='month-shift-block' style='background-color:" . $current_employee["color"] . "'>" . date('h:i A', strtotime($row["start_time"])). " - " . date('h:i A', strtotime($row["end_time"])) . "  " . $current_employee["first_name"] . " " . $current_employee["last_name"] . "</div>";
+                           echo "<a class='edit-item month' data-week='" . $dayOfWeek . "' data-employee-id='" . $current_employee['employee_id'] . "' data-shift-date='". $row['shift_date']. "' data-shift-id='". $row['shift_id']. "' data-start-time='" . $row['start_time'] . "' data-end-time='" . $row['end_time'] . "' data-toggle='modal' data-target='#EditShift'>";
+                           echo "<div class='month-shift-block' style='background-color:" . $current_employee["color"] . "'>" . date('h:i A', strtotime($row["start_time"])). " - " . date('h:i A', strtotime($row["end_time"])) . "  " . $current_employee["first_name"];
+                           echo " " . $current_employee["last_name"] . "</div></a>";
                          }
                        }
                      }
@@ -346,7 +350,7 @@
           <form action="add-shift.php" method="post">
             <div class="modal-body">
                 Employee
-                <select name="employee_select" class="employee_select">
+                <select name="employee_select" class="employee_select" onchange="checkExistingShift(shift_date.value, employee_select.value);">
                   <?php
                     $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
 
@@ -355,7 +359,8 @@
                     }
                   ?>
                 </select><br><br>
-                Day <input type="date" name="shift_date" class="shift_date" required><br><br>
+                Day <input type="date" name="shift_date" class="shift_date" required onchange="checkExistingShift(this.value, employee_select.value);"><br><br>
+                <span id="existing-shift-error"></span>
                 Start Time <select class="time-select" name="start_time_hour">
                   <option value=01>1</option>
                   <option value=02>2</option>
@@ -476,20 +481,21 @@
                     }
                   ?>
                 </select><br><br>
-                Day <input type="date" name="shift_date" class="shift_date" required><br><br>
+                Day <input type="date" name="shift_date" class="shift_date" required onchange="checkExistingShift(this.value, employee_select.value);"><br><br>
+                <span id="existing-shift-error"></span>
                 Start Time <select class="time-select" name="start_time_hour">
-                  <option value=01>1</option>
-                  <option value=02>2</option>
-                  <option value=03>3</option>
-                  <option value=04>4</option>
-                  <option value=05>5</option>
-                  <option value=06>6</option>
-                  <option value=07>7</option>
-                  <option value=08>8</option>
-                  <option value=09>9</option>
-                  <option value=10>10</option>
-                  <option value=11>11</option>
-                  <option value=12>12</option>
+                  <option value=01 name="1">1</option>
+                  <option value=02 name="2">2</option>
+                  <option value=03 name="3">3</option>
+                  <option value=04 name="4">4</option>
+                  <option value=05 name="5">5</option>
+                  <option value=06 name="6">6</option>
+                  <option value=07 name="7">7</option>
+                  <option value=08 name="8">8</option>
+                  <option value=09 name="9">9</option>
+                  <option value=10 name="10">10</option>
+                  <option value=11 name="11">11</option>
+                  <option value=12 name="12">12</option>
                 </select> :
                 <select class="time-select" name="start_time_min">
                   <option value="00">00</option>
@@ -502,18 +508,18 @@
                   <option value="AM">AM</option>
                 </select><br><br>
                 End Time <select class="time-select" name="end_time_hour">
-                  <option value=01>1</option>
-                  <option value=02>2</option>
-                  <option value=03>3</option>
-                  <option value=04>4</option>
-                  <option value=05>5</option>
-                  <option value=06>6</option>
-                  <option value=07>7</option>
-                  <option value=08>8</option>
-                  <option value=09>9</option>
-                  <option value=10>10</option>
-                  <option value=11>11</option>
-                  <option value=12>12</option>
+                  <option value=01 name="1">1</option>
+                  <option value=02 name="2">2</option>
+                  <option value=03 name="3">3</option>
+                  <option value=04 name="4">4</option>
+                  <option value=05 name="5">5</option>
+                  <option value=06 name="6">6</option>
+                  <option value=07 name="7">7</option>
+                  <option value=08 name="8">8</option>
+                  <option value=09 name="9">9</option>
+                  <option value=10 name="10">10</option>
+                  <option value=11 name="11">11</option>
+                  <option value=12 name="12">12</option>
                 </select> :
                 <select class="time-select" name="end_time_min">
                   <option value="00">00</option>
@@ -526,7 +532,12 @@
                   <option value="AM">AM</option>
                 </select><br><br>
                 <input style="display: none;" type="text" name="shift_id">
-                <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
+                <?php if(isset($_GET['month'])) {?>
+                  <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
+                <?php }
+                  else { ?>
+                    <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
+                  <?php }  ?>
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Update" class="btn btn-success">
@@ -550,11 +561,105 @@
           let end_time = $(this).data('end-time');
           let shift_date = $(this).data('shift-date');
           let employee_id = $(this).data('employee-id');
+
+
+          var starttime = start_time.split(':');
+          var endtime = end_time.split(':');
+          var end_am_pm = 'AM';
+          var start_am_pm = 'AM';
+          if(parseInt(starttime[0]) > 12) {
+            starttime[0] = (parseInt(starttime[0]) - 12).toString();
+            start_am_pm = 'PM';
+          }
+          else if (parseInt(starttime[0]) == 0) {
+            starttime[0] = "12";
+          }
+          else {
+            starttime[0] = parseInt(starttime[0]).toString();
+          }
+          if(parseInt(endtime[0]) > 12) {
+            endtime[0] = (parseInt(endtime[0]) - 12).toString();
+            end_am_pm = 'PM';
+          }
+          else if (parseInt(endtime[0]) == 0) {
+            endtime[0] = "12";
+          }
+          else {
+            endtime[0] = parseInt(endtime[0]).toString();
+          }
+          $('#EditShift select[name="start_time_hour"] option:selected').attr('selected', false);
+          $('#EditShift select[name="start_time_min"] option:selected').attr('selected', false);
+          $('#EditShift select[name="start_time_am_pm"] option:selected').attr('selected', false);
+          $('#EditShift select[name="employee_select"] option:selected').attr('selected', false);
+          $('#EditShift select[name="start_time_hour"] option[name="' + starttime[0] + '"]').attr('selected', true);
+          $('#EditShift select[name="start_time_min"] option[value="' + starttime[1] + '"]').attr('selected', true);
+          $('#EditShift select[name="start_time_am_pm"] option[value="' + start_am_pm + '"]').attr('selected', true);
+
+          $('#EditShift select[name="end_time_hour"] option:selected').attr('selected', false);
+          $('#EditShift select[name="end_time_min"] option:selected').attr('selected', false);
+          $('#EditShift select[name="end_time_am_pm"] option:selected').attr('selected', false);
+          $('#EditShift select[name="employee_select"] option:selected').attr('selected', false);
+          $('#EditShift select[name="end_time_hour"] option[name="' + endtime[0] + '"]').attr('selected', true);
+          $('#EditShift select[name="end_time_min"] option[value="' + endtime[1] + '"]').attr('selected', true);
+          $('#EditShift select[name="end_time_am_pm"] option[value="' + end_am_pm + '"]').attr('selected', true);
+
           $('#EditShift input[name="shift_id"]').attr('value', shift_id);
-          $('#EditShift input[name="start_time"]').attr('value', start_time);
-          $('#EditShift input[name="end_time"]').attr('value', end_time);
           $('#EditShift input[name="shift_date"]').attr('value', shift_date);
           $('#EditShift select option[value=' + employee_id + ']').attr('selected', 'selected');
+        });
+
+        $('.edit-item.month').on('click', function(){
+          let shift_id = $(this).data('shift-id');
+          let start_time = $(this).data('start-time');
+          let end_time = $(this).data('end-time');
+          let shift_date = $(this).data('shift-date');
+          let employee_id = $(this).data('employee-id');
+
+          var starttime = start_time.split(':');
+          var endtime = end_time.split(':');
+          var end_am_pm = 'AM';
+          var start_am_pm = 'AM';
+          if(parseInt(starttime[0]) > 12) {
+            starttime[0] = (parseInt(starttime[0]) - 12).toString();
+            start_am_pm = 'PM';
+          }
+          else if (parseInt(starttime[0]) == 0) {
+            starttime[0] = "12";
+          }
+          else {
+            starttime[0] = parseInt(starttime[0]).toString();
+          }
+          if(parseInt(endtime[0]) > 12) {
+            endtime[0] = (parseInt(endtime[0]) - 12).toString();
+            end_am_pm = 'PM';
+          }
+          else if (parseInt(endtime[0]) == 0) {
+            endtime[0] = "12";
+          }
+          else {
+            endtime[0] = parseInt(endtime[0]).toString();
+          }
+          $('#EditShift select[name="start_time_hour"] option:selected').attr('selected', false);
+          $('#EditShift select[name="start_time_min"] option:selected').attr('selected', false);
+          $('#EditShift select[name="start_time_am_pm"] option:selected').attr('selected', false);
+          $('#EditShift select[name="employee_select"] option:selected').attr('selected', false);
+          $('#EditShift select[name="start_time_hour"] option[name="' + starttime[0] + '"]').attr('selected', true);
+          $('#EditShift select[name="start_time_min"] option[value="' + starttime[1] + '"]').attr('selected', true);
+          $('#EditShift select[name="start_time_am_pm"] option[value="' + start_am_pm + '"]').attr('selected', true);
+
+          $('#EditShift select[name="end_time_hour"] option:selected').attr('selected', false);
+          $('#EditShift select[name="end_time_min"] option:selected').attr('selected', false);
+          $('#EditShift select[name="end_time_am_pm"] option:selected').attr('selected', false);
+          $('#EditShift select[name="employee_select"] option:selected').attr('selected', false);
+          $('#EditShift select[name="end_time_hour"] option[name="' + endtime[0] + '"]').attr('selected', true);
+          $('#EditShift select[name="end_time_min"] option[value="' + endtime[1] + '"]').attr('selected', true);
+          $('#EditShift select[name="end_time_am_pm"] option[value="' + end_am_pm + '"]').attr('selected', true);
+
+
+          $('#EditShift input[name="shift_id"]').attr('value', shift_id);
+          $('#EditShift input[name="end_time"]').attr('value', end_time);
+          $('#EditShift input[name="shift_date"]').attr('value', shift_date);
+          $('#EditShift select[name="employee_select"] option[value=' + employee_id + ']').attr('selected', 'selected');
         });
 
         $('.in-cell-add').on('click', function(){
@@ -575,6 +680,21 @@
           }
         });
       });
+      function checkExistingShift(date, employee) {
+        if (window.XMLHttpRequest) {
+          xmlhttp = new XMLHttpRequest();
+        }
+        else {
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('existing-shift-error').innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","checkExistingShift.php?date="+date+"&employee="+employee,true);
+        xmlhttp.send();
+      }
     </script>
   </body>
 </html>
