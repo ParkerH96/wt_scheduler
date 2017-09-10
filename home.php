@@ -297,7 +297,7 @@
                          $employee = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = '".$id_employee."' ");
 
                          if($count == 3){
-                           echo "<div class='show-more-shifts'><a href='#'>Seem More!</a></div>";
+                           echo "<div class='show-more-shifts'><a href='#'>More Shifts &darr; </a></div>";
                          }
 
                          while($current_employee = $employee->fetch_assoc()){
