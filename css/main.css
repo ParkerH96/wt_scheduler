@@ -286,7 +286,13 @@ a.control.button {
   max-height: inherit;
 }
 .show-more-shifts {
-  color: #717171;
   margin: 5%;
   position: relative;
+}
+.show-more-shifts a {
+  color: #717171;
+  text-decoration: none;
+}
+.show-more-shifts a:hover {
+  color: #333;
 }
