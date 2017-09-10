@@ -186,7 +186,8 @@ a.control.button {
   display: inline;
 }
 .month.schedule-view td {
-  height: 10rem;
+  height: 18vh;
+  max-height: 18vh;
   font-size: .9vw;
   vertical-align: top;
 }
@@ -271,12 +272,21 @@ a.control.button {
     border: 1px solid #AAA;
 }
 .add-shift-month {
-  line-height: 9rem;
-    position: absolute;
-    width: 17rem;
-    height: 10rem;
-    display: block;
+  line-height: 18vh;
+  position: absolute;
+  width: 14vw;
+  height: 18vh;
+  display: block;
 }
 .edit-item.month {
+  position: relative;
+}
+.month-table-cell {
+  overflow: hidden;
+  max-height: inherit;
+}
+.show-more-shifts {
+  color: #717171;
+  margin: 5%;
   position: relative;
 }

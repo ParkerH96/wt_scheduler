@@ -283,9 +283,11 @@
 
                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$currentDate."' ");
 
-                     echo "<a class='add-shift-month in-cell-add' data-toggle='modal' data-shift-date='$currentDate' data-target='#AddShift'></a>";
+                     echo "<div class='month-table-cell'><a class='add-shift-month in-cell-add' data-toggle='modal' data-shift-date='$currentDate' data-target='#AddShift'></a>";
 
                      echo "<div style='color: #717171' vertical-align='top' align='right'>". $currentDay ."</div>";
+
+                     $count = 0;
 
                      if($shift->num_rows > 0){
                        while($row = $shift->fetch_assoc()) {
@@ -294,11 +296,17 @@
 
                          $employee = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = '".$id_employee."' ");
 
+                         if($count == 3){
+                           echo "<div class='show-more-shifts'><a href='#'>Seem More!</a></div>";
+                         }
+
                          while($current_employee = $employee->fetch_assoc()){
 
                            echo "<a class='edit-item month' data-week='" . $dayOfWeek . "' data-employee-id='" . $current_employee['employee_id'] . "' data-shift-date='". $row['shift_date']. "' data-shift-id='". $row['shift_id']. "' data-start-time='" . $row['start_time'] . "' data-end-time='" . $row['end_time'] . "' data-toggle='modal' data-target='#EditShift'>";
                            echo "<div class='month-shift-block' style='background-color:" . $current_employee["color"] . "'>" . date('h:i A', strtotime($row["start_time"])). " - " . date('h:i A', strtotime($row["end_time"])) . "  " . $current_employee["first_name"];
                            echo " " . $current_employee["last_name"] . "</div></a>";
+
+                           $count++;
                          }
                        }
                      }
@@ -679,6 +687,17 @@
             window.location.href = url[0] + "?month=<?php echo (int) date('m') ?>";
           }
         });
+
+        $('.show-more-shifts').click(function() {
+          $(this).hide();
+
+          console.log($(this).parents('tr').children("td.day"));
+
+          $(this).parents("tr").children("td.day").css('max-height', 'none');
+          $(this).parents("tr").children("td.day").css('padding-bottom', '10px');
+          $(this).parents('tr').find('.show-more-shifts').css('display', 'none');
+        })
+
       });
       function checkExistingShift(date, employee) {
         if (window.XMLHttpRequest) {
