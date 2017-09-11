@@ -7,6 +7,15 @@
 ul.navbar-nav li a {
   color: white;
 }
+ul.navbar-nav {
+  display: inline;
+  margin-right: 5vw;
+}
+ul.navbar-nav li {
+   float: left;
+   display: inline;
+   padding: 0 1vw;
+}
 .login-body {
   background-color: #f1f1f1;
 }
@@ -232,6 +241,17 @@ a.control.button {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     cursor: pointer;
+    background-color: #333;
+}
+
+.schedule-type input[type="radio"].toggle-center + label {
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-top-left-radius: 0;
+    -moz-border-bottom-left-radius: 0;
+    cursor: pointer;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     background-color: #333;
 }
 
