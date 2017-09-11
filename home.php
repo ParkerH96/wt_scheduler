@@ -95,7 +95,6 @@
           <label class="btn btn-default btn-sm control button" for="toggle-off" type="button">Month</label>
         </div>
       </div>
-      <br>
       <?php
         include 'connection.php';
 
@@ -356,20 +355,20 @@
             <h4 class="modal-title">Add Shift</h4>
           </div>
           <form action="add-shift.php" method="post">
-            <div class="modal-body">
-                Employee
+            <div class="modal-body row">
+              <div class="col-md-6">
+                <span class='shift-text'>Employee</span><br>
                 <select name="employee_select" class="employee_select" onchange="checkExistingShift(shift_date.value, employee_select.value);">
                   <?php
-                    $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
+                  $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
 
-                    while($employee =  $employees->fetch_assoc()){
-                      echo '<option value="' . $employee['employee_id'] . '">' . $employee['first_name'] . ' ' . $employee['last_name'] . '</option>';
-                    }
+                  while($employee =  $employees->fetch_assoc()){
+                    echo '<option value="' . $employee['employee_id'] . '">' . $employee['first_name'] . ' ' . $employee['last_name'] . '</option>';
+                  }
                   ?>
                 </select><br><br>
-                Day <input type="date" name="shift_date" class="shift_date" required onchange="checkExistingShift(this.value, employee_select.value);"><br><br>
-                <span id="existing-shift-error"></span>
-                Start Time <select class="time-select" name="start_time_hour">
+                <span class='shift-text'>Start Time</span> <br>
+                <select class="time-select" name="start_time_hour">
                   <option value=01>1</option>
                   <option value=02>2</option>
                   <option value=03>3</option>
@@ -393,7 +392,12 @@
                   <option value="PM">PM</option>
                   <option value="AM">AM</option>
                 </select><br><br>
-                End Time <select class="time-select" name="end_time_hour">
+              </div>
+              <div class="col-md-6">
+                <span class='shift-text'>Day</span> <br>
+                <input type="date" name="shift_date" class="shift_date" required onchange="checkExistingShift(this.value, employee_select.value);"><br><br>
+                <span class='shift-text'>End Time</span><br>
+                <select class="time-select" name="end_time_hour">
                   <option value=01>1</option>
                   <option value=02>2</option>
                   <option value=03>3</option>
@@ -417,12 +421,16 @@
                   <option value="PM">PM</option>
                   <option value="AM">AM</option>
                 </select><br><br>
+              </div>
+              <span id="existing-shift-error"></span>
+
                 <?php if(isset($_GET['month'])) {?>
                   <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
                 <?php }
                   else { ?>
                     <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
                   <?php }  ?>
+
             </div>
             <div class="modal-footer">
               <input type="submit" name="submit" value="Add Shift" class="btn btn-success">
@@ -478,8 +486,9 @@
             <h4 class="modal-title">Edit Shift</h4>
           </div>
           <form action="edit-shift.php" method="post">
-            <div class="modal-body">
-                Employee
+            <div class="modal-body row">
+              <div class="col-md-6">
+                <span class="shift-text">Employee</span><br>
                 <select name="employee_select" class="employee_select">
                   <?php
                     $employees = $mysqli->query("SELECT * FROM EMPLOYEE");
@@ -489,9 +498,8 @@
                     }
                   ?>
                 </select><br><br>
-                Day <input type="date" name="shift_date" class="shift_date" required onchange="checkExistingShift(this.value, employee_select.value);"><br><br>
-                <span id="existing-shift-error"></span>
-                Start Time <select class="time-select" name="start_time_hour">
+                <span class="shift-text">Start Time </span><br>
+                <select class="time-select" name="start_time_hour">
                   <option value=01 name="1">1</option>
                   <option value=02 name="2">2</option>
                   <option value=03 name="3">3</option>
@@ -515,7 +523,12 @@
                   <option value="PM">PM</option>
                   <option value="AM">AM</option>
                 </select><br><br>
-                End Time <select class="time-select" name="end_time_hour">
+              </div>
+              <div class="col-md-6">
+                <span class="shift-text">Day</span><br>
+                <input type="date" name="shift_date" class="shift_date" required onchange="checkExistingShift(this.value, employee_select.value);"><br><br>
+                <span class="shift-text">End Time</span><br>
+                <select class="time-select" name="end_time_hour">
                   <option value=01 name="1">1</option>
                   <option value=02 name="2">2</option>
                   <option value=03 name="3">3</option>
@@ -539,6 +552,9 @@
                   <option value="PM">PM</option>
                   <option value="AM">AM</option>
                 </select><br><br>
+              </div>
+                <span id="existing-shift-error"></span>
+
                 <input style="display: none;" type="text" name="shift_id">
                 <?php if(isset($_GET['month'])) {?>
                   <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
@@ -548,7 +564,7 @@
                   <?php }  ?>
             </div>
             <div class="modal-footer">
-              <input type="submit" name="submit" value="Update" class="btn btn-success">
+              <input type="submit" name="submit" value="Update Shift" class="btn btn-success">
             </div>
           </form>
         </div>
@@ -690,8 +706,6 @@
 
         $('.show-more-shifts').click(function() {
           $(this).hide();
-
-          console.log($(this).parents('tr').children("td.day"));
 
           $(this).parents("tr").children("td.day").css('max-height', 'none');
           $(this).parents("tr").children("td.day").css('padding-bottom', '10px');

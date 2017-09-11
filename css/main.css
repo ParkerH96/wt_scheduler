@@ -296,3 +296,15 @@ a.control.button {
 .show-more-shifts a:hover {
   color: #333;
 }
+.shift-text {
+  color: #717171;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+.modal-dialog {
+  margin-top: 15%;
+}
+.modal-header {
+  color: #717171;
+}
