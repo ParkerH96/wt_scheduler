@@ -15,7 +15,7 @@
 
     $mysqli->query("INSERT INTO EMPLOYEE(admin_tag, first_name, last_name, email, phone_number, dob, username, password, color) VALUES ($admin_tag, '$first_name', '$last_name', '$email', '$phone_number', '$dob', '$username', '$password', '$color');");
 
-    header("location: home.php?week=$week");
+    header("location: scheduler.php?week=$week");
 
   }
   else {

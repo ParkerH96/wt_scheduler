@@ -40,7 +40,7 @@
 
     $get_location = $week ? 'week='.$week : 'month='.$month;
 
-    header("location: home.php?$get_location");
+    header("location: scheduler.php?$get_location");
 
   }
   else {

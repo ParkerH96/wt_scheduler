@@ -9,7 +9,7 @@
 
     $mysqli->query("DELETE FROM SHIFT WHERE shift_id = $shift_id");
 
-    header("location: home.php?week=$week");
+    header("location: scheduler.php?week=$week");
 
   }
 ?>
