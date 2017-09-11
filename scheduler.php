@@ -335,7 +335,87 @@
   <?php }
         else if (isset($_GET['day'])) { ?>
             <div class="container-fluid day schedule-view" style="padding-left: 2px; padding-right: 2px;">
-              Day view
+              <table class="schedule-table">
+                <tr>
+                  <td class='hour-td'>
+                    <div class="hour">
+                      12am
+                    </div>
+                    <div class="hour">
+                      1am
+                    </div>
+                    <div class="hour">
+                      2am
+                    </div>
+                    <div class="hour">
+                      3am
+                    </div>
+                    <div class="hour">
+                      4am
+                    </div>
+                    <div class="hour">
+                      5am
+                    </div>
+                    <div class="hour">
+                      6am
+                    </div>
+                    <div class="hour">
+                      7am
+                    </div>
+                    <div class="hour">
+                      8am
+                    </div>
+                    <div class="hour">
+                      9am
+                    </div>
+                    <div class="hour">
+                      10am
+                    </div>
+                    <div class="hour">
+                      11am
+                    </div>
+                    <div class="hour">
+                      12pm
+                    </div>
+                    <div class="hour">
+                      1pm
+                    </div>
+                    <div class="hour">
+                      2pm
+                    </div>
+                    <div class="hour">
+                      3pm
+                    </div>
+                    <div class="hour">
+                      4pm
+                    </div>
+                  </td>
+                  <td class='hour-section-td'>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                </td>
+                <td class="day-shift-block-td" style="width:0">
+                  <div class="day-shift-block">
+
+                  </div>
+                </td>
+                </tr>
+              </table>
             </div>
 
     <?php }?>
