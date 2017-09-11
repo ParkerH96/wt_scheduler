@@ -39,7 +39,7 @@
   </head>
   <body>
     <div class="dashboard">
-      <h1 style="text-align: center">DASHBOARD</h1>
+      <h1 style="text-align: center">DASHBOARD HERE</h1>
     </div>
   </body>
 </html>
