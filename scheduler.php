@@ -429,11 +429,11 @@
                               $hourarray[] = $i;
                             }
                             foreach ($hourarray as $key) {
-                              $hourString .= $key . ', ';
+                              $hourString .= $key . ',';
                             }
                             ?>
 
-                            <div class="day-shift-block" data-day-hours='<?php echo substr($hourString, 0, -2); ?>' style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
+                            <div class="day-shift-block" data-day-hours='<?php echo substr($hourString, 0, -1); ?>' style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
                               <?php
                                 echo $current_row['first_name'] . ' ' . $current_row['last_name'] .  ' <br />';
                                 echo date('h:i A', strtotime($row['start_time'])) . ' - ' . date('h:i A', strtotime($row['end_time']));
@@ -843,6 +843,26 @@
           $(this).parents('tr').find('.show-more-shifts').css('display', 'none');
         })
 
+        var dayShiftBlock = $('[data-day-hours]');
+
+        var elementvshours = [[]];
+
+        var countInner = 0;
+        var countOuter = 0;
+
+        dayShiftBlock.each(function() {
+          var hoursArray = $(this).attr('data-day-hours').split(',');
+          console.log(hoursArray);
+          $(hoursArray).each(function() {
+            elementvshours[countOuter[countInner]] = Array.prototype.join.call($(this), "");
+            countInner++;
+          });
+          console.log($(this));
+          elementvshours[countOuter[countInner]] = $(this);
+          countOuter++;
+        });
+
+        console.log(elementvshours);
       });
       function checkExistingShift(date, employee) {
         if (window.XMLHttpRequest) {
