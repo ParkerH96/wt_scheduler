@@ -348,6 +348,3 @@ a.control.button {
   top: 7.4rem;
   width: 96.1%
 }
-html [type="button"] {
-  -webkit-appearance: button-bevel;
-}
