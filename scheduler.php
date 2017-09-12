@@ -418,9 +418,22 @@
 
                             $shiftTime = $hoursofShift + $minofShift/60;
                             $top = 3*($shiftTime) + 7.4;
+
+                            $hourarray = array();
+                            $hourString = '';
+                            $hourStrings= '';
+                            $startFormatted = $startTime->format("H");
+                            $endFormatted = $endTime->format("H");
+
+                            for($i = $startFormatted; $i < $endFormatted; $i++){
+                              $hourarray[] = $i;
+                            }
+                            foreach ($hourarray as $key) {
+                              $hourString .= $key . ', ';
+                            }
                             ?>
 
-                            <div class="day-shift-block" style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
+                            <div class="day-shift-block" data-day-hours='<?php echo substr($hourString, 0, -2); ?>' style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
                               <?php
                                 echo $current_row['first_name'] . ' ' . $current_row['last_name'] .  ' <br />';
                                 echo date('h:i A', strtotime($row['start_time'])) . ' - ' . date('h:i A', strtotime($row['end_time']));
