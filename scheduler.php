@@ -101,7 +101,7 @@
         <div class="schedule-type">
           <input class="toggle toggle-left" id="toggle-off-left" type="radio" name="schedule-type" value="Day" <?php if(isset($_GET['day'])) {?> checked="checked" <?php } ?>>
           <label class="btn btn-default btn-sm control button" for="toggle-off-left" type="button">Day</label>
-          <input id="toggle-on" class="toggle toggle-center" type="radio" name="schedule-type" value="Week" <?php if(isset($_GET['week'])) {?> checked="checked" <?php } ?>>
+          <input id="toggle-on" class="toggle toggle-center" type="radio" name="schedule-type" value="Week" <?php if(isset($_GET['week']) || !isset($_GET['week']) && !isset($_GET['day']) && !isset($_GET['month'])) {?> checked="checked" <?php } ?>>
           <label class="btn btn-default btn-sm control button" for="toggle-on" type="button">Week</label>
           <input class="toggle toggle-right" id="toggle-off-right" type="radio" name="schedule-type" value="Month" <?php if(isset($_GET['month'])) {?> checked="checked" <?php } ?>>
           <label class="btn btn-default btn-sm control button" for="toggle-off-right" type="button">Month</label>
@@ -334,62 +334,34 @@
             </div>
   <?php }
         else if (isset($_GET['day'])) { ?>
-            <div class="container-fluid day schedule-view" style="padding-left: 2px; padding-right: 2px;">
+          <div class="container-fluid day schedule-view" style="padding-left: 2px; padding-right: 2px;">
               <table class="schedule-table">
                 <tr>
                   <td class='hour-td'>
-                    <div class="hour">
-                      12am
-                    </div>
-                    <div class="hour">
-                      1am
-                    </div>
-                    <div class="hour">
-                      2am
-                    </div>
-                    <div class="hour">
-                      3am
-                    </div>
-                    <div class="hour">
-                      4am
-                    </div>
-                    <div class="hour">
-                      5am
-                    </div>
-                    <div class="hour">
-                      6am
-                    </div>
-                    <div class="hour">
-                      7am
-                    </div>
-                    <div class="hour">
-                      8am
-                    </div>
-                    <div class="hour">
-                      9am
-                    </div>
-                    <div class="hour">
-                      10am
-                    </div>
-                    <div class="hour">
-                      11am
-                    </div>
-                    <div class="hour">
-                      12pm
-                    </div>
-                    <div class="hour">
-                      1pm
-                    </div>
-                    <div class="hour">
-                      2pm
-                    </div>
-                    <div class="hour">
-                      3pm
-                    </div>
-                    <div class="hour">
-                      4pm
-                    </div>
-                  </td>
+                    <div class="hour">12am</div>
+                    <div class="hour">1am</div>
+                    <div class="hour">2am</div>
+                    <div class="hour">3am</div>
+                    <div class="hour">4am</div>
+                    <div class="hour">5am</div>
+                    <div class="hour">6am</div>
+                    <div class="hour">7am</div>
+                    <div class="hour">8am</div>
+                    <div class="hour">9am</div>
+                    <div class="hour">10am</div>
+                    <div class="hour">11am</div>
+                    <div class="hour">12pm</div>
+                    <div class="hour">1pm</div>
+                    <div class="hour">2pm</div>
+                    <div class="hour">3pm</div>
+                    <div class="hour">4pm</div>
+                    <div class="hour">5pm</div>
+                    <div class="hour">6pm</div>
+                    <div class="hour">7pm</div>
+                    <div class="hour">8pm</div>
+                    <div class="hour">9pm</div>
+                    <div class="hour">10pm</div>
+                    <div class="hour">11pm</div></td>
                   <td class='hour-section-td'>
                     <div class="hour-section"></div>
                     <div class="hour-section"></div>
@@ -408,12 +380,57 @@
                     <div class="hour-section"></div>
                     <div class="hour-section"></div>
                     <div class="hour-section"></div>
-                </td>
-                <td class="day-shift-block-td" style="width:0">
-                  <div class="day-shift-block">
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div>
+                    <div class="hour-section"></div></td>
+                  <td class="day-shift-block-td" style="width:0">
+                    <?php
+                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$day_get."'");
 
-                  </div>
-                </td>
+                      if($shift->num_rows > 0){
+                        while($row = $shift->fetch_assoc()) {
+
+                          $employeeId = $row['employee_id'];
+                          $employees = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = '".$employeeId."' ");
+
+                          while($current_row = $employees->fetch_assoc()) {
+
+                            $startTime = new DateTime($row['start_time']);
+                            $endTime = new DateTime($row['end_time']);
+
+                            $shiftInterval = $startTime->diff($endTime);
+                            $hoursofShift = $shiftInterval->format("%h");
+                            $minofShift = $shiftInterval->format("%i");
+
+                            $shiftTime = $hoursofShift + $minofShift/60;
+                            $height = 3*($shiftTime-1) + 2.8;
+
+                            $zeroTime = new DateTime('00:00:00');
+
+                            $difftoStart = $zeroTime->diff($startTime);
+
+                            $hoursofShift = $difftoStart->format("%h");
+                            $minofShift = $difftoStart->format("%i");
+
+                            $shiftTime = $hoursofShift + $minofShift/60;
+                            $top = 3*($shiftTime) + 7.4;
+                            ?>
+
+                            <div class="day-shift-block" style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
+                              <?php
+                                echo $current_row['first_name'] . ' ' . $current_row['last_name'] .  ' <br />';
+                                echo $row['start_time'] . ' - ' . $row['end_time'];
+                               ?>
+                            </div>
+                          <?php
+                          }
+                        }
+                      } ?>
+                  </td>
                 </tr>
               </table>
             </div>

@@ -195,9 +195,9 @@ a.control.button {
   display: inline;
 }
 .month.schedule-view td {
-  height: 18vh;
-  max-height: 18vh;
-  font-size: .9vw;
+  height: 10rem;
+  max-height: 10rem;
+  font-size: 1rem;
   vertical-align: top;
 }
 .month-shift-block {
@@ -292,10 +292,10 @@ a.control.button {
     border: 1px solid #AAA;
 }
 .add-shift-month {
-  line-height: 18vh;
+  line-height: 10rem;
   position: absolute;
   width: 14vw;
-  height: 18vh;
+  height: 10rem;
   display: block;
 }
 .edit-item.month {
@@ -340,12 +340,11 @@ a.control.button {
 }
 .hour-section {
   height: 3rem;
-  border: 1px black dotted;
+  border: 1px #717171 dotted;
 }
 .day-shift-block {
-  height: 5rem;
-  background-color: blue;
   position: absolute;
   left: 4.3rem;
-  width: 10rem
+  top: 7.4rem;
+  width: 96.1%
 }
