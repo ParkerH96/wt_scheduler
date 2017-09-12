@@ -10,9 +10,9 @@
             $firstDayofWeek = date('M. d', strtotime('-'.($weekofmonth + (7*($weekofmonth-$week))).' days'));
             $lastDayofWeek = date('M. d', strtotime('-'.($weekofmonth - 6 + (7*($weekofmonth-$week))).' days'));
 
-            $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
+            $next_week_link = '<a class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
 
-            $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
+            $previous_week_link = '<a class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
 
             $controls = '<form class="week control-form" method="get">'.$previous_week_link.'  <span class="date-display">'.$firstDayofWeek.' - '.$lastDayofWeek.'</span>   '.$next_week_link.' </form>';
           }
@@ -21,18 +21,18 @@
 
             $MonthDisplay = date('F', strtotime('+'.($month - (int) date('m')).' months'));
 
-            $next_month_link = '<a type="button" class="btn btn-default btn-sm control button" href="?month='.($month + 1).'">Next Month</a>';
+            $next_month_link = '<a class="btn btn-default btn-sm control button" href="?month='.($month + 1).'">Next Month</a>';
 
-            $previous_month_link = '<a type="button" class="btn btn-default btn-sm control button" href="?month='.($month - 1).'" class="control button">Prev Month</a>';
+            $previous_month_link = '<a class="btn btn-default btn-sm control button" href="?month='.($month - 1).'" class="control button">Prev Month</a>';
 
             $controls = '<form class="month control-form" method="get">'.$previous_month_link.'   <span class="date-display">'.$MonthDisplay.'</span>  '.$next_month_link.' </form>';
           }
           else if(isset($_GET['day'])) {
             $day_get = $_GET['day'];
 
-            $next_day_link = '<a type="button" class="btn btn-default btn-sm control button" href="?day='.(date('Y-m-d', strtotime('+ 1 days', strtotime($day_get)))).'">Next Day</a>';
+            $next_day_link = '<a class="btn btn-default btn-sm control button" href="?day='.(date('Y-m-d', strtotime('+ 1 days', strtotime($day_get)))).'">Next Day</a>';
 
-            $previous_day_link = '<a type="button" class="btn btn-default btn-sm control button" href="?day='.(date('Y-m-d', strtotime('- 1 days', strtotime($day_get)))).'" class="control button">Prev Day</a>';
+            $previous_day_link = '<a class="btn btn-default btn-sm control button" href="?day='.(date('Y-m-d', strtotime('- 1 days', strtotime($day_get)))).'" class="control button">Prev Day</a>';
 
             $controls = '<form class="day control-form" method="get">'.$previous_day_link.'  <span class="date-display">'.date('D, M. jS, Y', strtotime($day_get)).'</span>   '.$next_day_link.' </form>';
           }
@@ -42,9 +42,9 @@
             $firstDayofWeek = date('M. d', strtotime('-'.($week).' days'));
             $lastDayofWeek = date('M. d', strtotime('-'.($week - 6).' days'));
 
-            $next_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
+            $next_week_link = '<a class="btn btn-default btn-sm control button" href="?week='.($week + 1).'">Next Week</a>';
 
-            $previous_week_link = '<a type="button" class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
+            $previous_week_link = '<a class="btn btn-default btn-sm control button" href="?week='.($week - 1).'" class="control button">Prev Week</a>';
 
             $controls = '<form class="week control-form" method="get">'.$previous_week_link.'  <span class="date-display">'.$firstDayofWeek.' - '.$lastDayofWeek.'</span>   '.$next_week_link.' </form>';
           }
@@ -89,7 +89,7 @@
       <div class="control-bar">
         <?php if($admin_tag == 1) { ?>
         <div class="dropdown new" style="display:inline-block">
-          <a class="btn btn-default dropdown-toggle control button btn-sm" type="button" data-toggle="dropdown"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;New
+          <a class="btn btn-default dropdown-toggle control button btn-sm" data-toggle="dropdown"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;New
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#" data-toggle="modal" data-target="#AddEmployee">Employee</a></li>
@@ -100,11 +100,11 @@
         <?php echo $controls; ?>
         <div class="schedule-type">
           <input class="toggle toggle-left" id="toggle-off-left" type="radio" name="schedule-type" value="Day" <?php if(isset($_GET['day'])) {?> checked="checked" <?php } ?>>
-          <label class="btn btn-default btn-sm control button" for="toggle-off-left" type="button">Day</label>
+          <label class="btn btn-default btn-sm control button" for="toggle-off-left">Day</label>
           <input id="toggle-on" class="toggle toggle-center" type="radio" name="schedule-type" value="Week" <?php if(isset($_GET['week']) || !isset($_GET['week']) && !isset($_GET['day']) && !isset($_GET['month'])) {?> checked="checked" <?php } ?>>
-          <label class="btn btn-default btn-sm control button" for="toggle-on" type="button">Week</label>
+          <label class="btn btn-default btn-sm control button" for="toggle-on">Week</label>
           <input class="toggle toggle-right" id="toggle-off-right" type="radio" name="schedule-type" value="Month" <?php if(isset($_GET['month'])) {?> checked="checked" <?php } ?>>
-          <label class="btn btn-default btn-sm control button" for="toggle-off-right" type="button">Month</label>
+          <label class="btn btn-default btn-sm control button" for="toggle-off-right">Month</label>
         </div>
       </div>
       <?php
