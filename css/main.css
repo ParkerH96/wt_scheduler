@@ -342,6 +342,12 @@ a.control.button {
   height: 3rem;
   border: 1px #717171 dotted;
 }
+.hour:nth-child(odd), .hour-section:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+.hour:nth-child(even), .hour-section:nth-child(even) {
+  background-color: white;
+}
 .day-shift-block {
   position: absolute;
   left: 4.3rem;

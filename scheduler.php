@@ -423,7 +423,7 @@
                             <div class="day-shift-block" style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
                               <?php
                                 echo $current_row['first_name'] . ' ' . $current_row['last_name'] .  ' <br />';
-                                echo $row['start_time'] . ' - ' . $row['end_time'];
+                                echo date('h:i A', strtotime($row['start_time'])) . ' - ' . date('h:i A', strtotime($row['end_time']));
                                ?>
                             </div>
                           <?php
