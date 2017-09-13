@@ -13,6 +13,7 @@
     $employee_id = $mysqli->escape_string($_POST['employee_select']);
     $week = $mysqli->escape_string($_POST['week']);
     $month = $mysqli->escape_string($_POST['month']);
+    $day = $mysqli->escape_string($_POST['day']);
 
     if($start_time_am_pm == 'PM'){
       if($start_time_hour != 12){
@@ -38,7 +39,15 @@
 
     $mysqli->query("INSERT INTO SHIFT(employee_id, shift_date, start_time, end_time) VALUES ($employee_id, '$shift_date', '$start_time', '$end_time');");
 
-    $get_location = $week ? 'week='.$week : 'month='.$month;
+    if(!$week) {
+      $get_location = 'week='.$week;
+    }
+    else if($month != NULL){
+      $get_location = 'month='.$month;
+    }
+    else {
+      $get_location = 'day='.$day;
+    }
 
     header("location: scheduler.php?$get_location");
 

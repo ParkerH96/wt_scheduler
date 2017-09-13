@@ -215,7 +215,7 @@
                           }
                         }
                         else {  ?>
-                          <td><?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-week="<?php echo $week; ?>" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
+                          <td><?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-employee-id="<?php echo $current_row['employee_id']; ?>" data-shift-date="<?php echo $shift_date; ?>" data-toggle="modal" data-target="#AddShift">
                             <i class="fa fa-plus" aria-hidden="true"></i></a><?php } ?></td>
                     <?php
                         }
@@ -363,33 +363,57 @@
                     <div class="hour">10pm</div>
                     <div class="hour">11pm</div></td>
                   <td class='hour-section-td'>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div>
-                    <div class="hour-section"></div></td>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
+                    <?php if($admin_tag == 1) { ?><a class="in-cell-add add-item" data-shift-date="<?php echo (string) date($_GET['day']); ?>" data-toggle="modal" data-target="#AddShift">
+                    <div class="hour-section"></div></a><?php } ?>
                   <td class="day-shift-block-td" style="width:0">
                     <?php
-                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$day_get."'");
+                      $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_date = '".$day_get."' ORDER BY start_time ASC ");
 
                       if($shift->num_rows > 0){
                         while($row = $shift->fetch_assoc()) {
@@ -432,13 +456,14 @@
                               $hourString .= $key . ',';
                             }
                             ?>
-
-                            <div class="day-shift-block" data-day-hours='<?php echo substr($hourString, 0, -1); ?>' style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
-                              <?php
-                                echo $current_row['first_name'] . ' ' . $current_row['last_name'] .  ' <br />';
-                                echo date('h:i A', strtotime($row['start_time'])) . ' - ' . date('h:i A', strtotime($row['end_time']));
-                               ?>
-                            </div>
+                              <div class="day-shift-block" data-day-hours='<?php echo substr($hourString, 0, -1); ?>' style="background-color: <?php echo $current_row['color']; ?>; height: <?php echo $height; ?>rem; top: <?php echo  $top; ?>rem;">
+                                <a class='edit-item month' style="height: <?php echo $height ?>rem; display: block" data-employee-id='<?php echo $current_row['employee_id'] ?>' data-shift-date='<?php echo $row['shift_date'] ?>' data-shift-id='<?php echo $row['shift_id'] ?>' data-start-time='<?php echo $row['start_time'] ?>' data-end-time='<?php echo $row['end_time'] ?>' data-toggle='modal' data-target='#EditShift'>
+                                <?php
+                                  echo $current_row['first_name'] . ' ' . $current_row['last_name'] .  ' <br />';
+                                  echo date('h:i A', strtotime($row['start_time'])) . ' - ' . date('h:i A', strtotime($row['end_time']));
+                                 ?>
+                               </a>
+                              </div>
                           <?php
                           }
                         }
@@ -553,6 +578,9 @@
 
                 <?php if(isset($_GET['month'])) {?>
                   <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
+                <?php }
+                  else if (isset($_GET['day'])){ ?>
+                    <input style="display: none;" type="number" name="day" value="<?php echo $day_get; ?>">
                 <?php }
                   else { ?>
                     <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
@@ -686,8 +714,11 @@
                 <?php if(isset($_GET['month'])) {?>
                   <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
                 <?php }
+                  else if(isset($_GET['day'])){ ?>
+                  <input style="display: none;" type="number" name="day" value="<?php echo $day_get; ?>">
+                <?php }
                   else { ?>
-                    <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
+                  <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
                   <?php }  ?>
             </div>
             <div class="modal-footer">
@@ -814,6 +845,7 @@
         });
 
         $('.in-cell-add').on('click', function(){
+          console.log("clicked");
           let shift_date = $(this).data('shift-date');
           let employee_id = $(this).data('employee-id');
           $('#AddShift input[name="shift_date"]').attr('value', shift_date);
@@ -852,17 +884,53 @@
 
         dayShiftBlock.each(function() {
           var hoursArray = $(this).attr('data-day-hours').split(',');
-          console.log(hoursArray);
+          elementvshours.push([]);
           $(hoursArray).each(function() {
-            elementvshours[countOuter[countInner]] = Array.prototype.join.call($(this), "");
+            elementvshours[countOuter].push(Array.prototype.join.call($(this), ""));
             countInner++;
           });
-          console.log($(this));
-          elementvshours[countOuter[countInner]] = $(this);
+          elementvshours[countOuter].push($(this));
           countOuter++;
         });
 
-        console.log(elementvshours);
+        var maxCount = 0;
+        var currentCount = 0;
+
+        $(elementvshours).each(function(indexOuter, elementOuter) {
+          if(indexOuter == (elementvshours.length-1))
+            return false;
+
+          for(var i = 0; i < elementOuter.length-1; i++){
+            $(elementvshours).each(function(indexInner, elementInner) {
+              if(indexInner == indexOuter)
+                return true;
+
+              for(var j = 0; j < elementInner.length-1; j++)
+                if(elementOuter[i] == elementInner[j])
+                  currentCount++;
+            });
+            if(currentCount > maxCount)
+              maxCount = currentCount;
+
+            currentCount = 0;
+          }
+
+          var left = 3.6 + (1/<?php echo $shift->num_rows ?>*100)*indexOuter - indexOuter*.8;
+          var width = 1/<?php echo $shift->num_rows ?>*100 - 3.6/(<?php echo $shift->num_rows ?>)-7/<?php echo $shift->num_rows ?>;
+          var zindex = indexOuter;
+
+          if(left < 3.6){
+            left = 3.6;
+          }
+
+          elementOuter[elementOuter.length - 1].css({
+            "left" : left+"%",
+            "width" : width+"%",
+            "z-index" : zindex
+          });
+
+          maxCount = 0;
+        });
       });
       function checkExistingShift(date, employee) {
         if (window.XMLHttpRequest) {
