@@ -12,9 +12,9 @@
     $end_time_am_pm = $mysqli->escape_string($_POST['end_time_am_pm']);
     $employee_id = $mysqli->escape_string($_POST['employee_select']);
     $shift_id = $mysqli->escape_string($_POST['shift_id']);
-    $week = $mysqli->escape_string($_POST['week']);
-    $month = $mysqli->escape_string($_POST['month']);
-    $day = $mysqli->escape_string($_POST['day']);
+    $week = $_POST['week'];
+    $month = $_POST['month'];
+    $day = $_POST['day'];
 
 
     if($start_time_am_pm == 'PM'){
@@ -41,14 +41,14 @@
 
     $mysqli->query("UPDATE SHIFT SET employee_id = $employee_id, shift_date = '$shift_date', start_time = '$start_time', end_time = '$end_time' WHERE shift_id = $shift_id;");
 
-    if(!$week) {
+    if(isset($week) && !empty($week)) {
       $get_location = 'week='.$week;
     }
-    else if($month != NULL){
+    else if(isset($month) && !empty($month)){
       $get_location = 'month='.$month;
     }
     else {
-      $get_location = 'day='.$month;
+      $get_location = 'day='.$day;
     }
 
     header("location: scheduler.php?$get_location");

@@ -580,7 +580,7 @@
                   <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
                 <?php }
                   else if (isset($_GET['day'])){ ?>
-                    <input style="display: none;" type="number" name="day" value="<?php echo $day_get; ?>">
+                    <input style="display: none;" type="text" name="day" value="<?php echo $day_get; ?>">
                 <?php }
                   else { ?>
                     <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">
@@ -715,7 +715,7 @@
                   <input style="display: none;" type="number" name="month" value="<?php echo $month; ?>">
                 <?php }
                   else if(isset($_GET['day'])){ ?>
-                  <input style="display: none;" type="number" name="day" value="<?php echo $day_get; ?>">
+                  <input style="display: none;" type="text" name="day" value="<?php echo $day_get; ?>">
                 <?php }
                   else { ?>
                   <input style="display: none;" type="number" name="week" value="<?php echo $week; ?>">

@@ -39,10 +39,10 @@
 
     $mysqli->query("INSERT INTO SHIFT(employee_id, shift_date, start_time, end_time) VALUES ($employee_id, '$shift_date', '$start_time', '$end_time');");
 
-    if(!$week) {
+    if(isset($week) && !empty($week)) {
       $get_location = 'week='.$week;
     }
-    else if($month != NULL){
+    else if(isset($month) && !empty($month)){
       $get_location = 'month='.$month;
     }
     else {
