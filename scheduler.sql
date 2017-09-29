@@ -40,6 +40,20 @@ CREATE TABLE SHIFT
   FOREIGN KEY (employee_id) REFERENCES EMPLOYEE(employee_id)
 );
 
+DROP TABLE IF EXISTS TRADE_SHIFTS;
+CREATE TABLE TRADE_SHIFTS
+(
+  traded_by int NOT NULL,
+  shift_traded_by int NOT NULL,
+  traded_to int NOT NULL,
+  shift_traded_to int NOT NULL,
+  trade_status int NOT NULL,
+  FOREIGN KEY (traded_by) REFERENCES EMPLOYEE(employee_id),
+  FOREIGN KEY (shift_traded_by) REFERENCES SHIFT(shift_id),
+  FOREIGN KEY (traded_to) REFERENCES EMPLOYEE(employee_id),
+  FOREIGN KEY (shift_traded_to) REFERENCES SHIFT(shift_id)
+);
+
 INSERT INTO EMPLOYEE(admin_tag, first_name, last_name, email, phone_number, dob, username, password, color) VALUES
 (1, 'Parker', 'Householder', 'paho224@g.uky.edu', '8593589125', '1996-05-01', 'paho224', 'wildcattech1', '#3bc19d'),
 (1, 'Zack', 'Arnett', 'arnett.zackary@gmail.com', '8590849392', '1996-06-03', 'zsar222', 'UKengineer14!', '#5f62e7'),
