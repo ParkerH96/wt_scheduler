@@ -24,7 +24,7 @@
           <?php echo $first_name; ?>
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="profile.php">Profile</a>
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
           <div class="dropdown-divider"></div>
@@ -32,14 +32,14 @@
         </div>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="scheduler.php" href="home.php">Dashboard</a></li>
+        <li><a href="home.php">Dashboard</a></li>
         <li><a id="show-scheduler" href="scheduler.php">Schedule</a></li>
       </ul>
     </div>
   </head>
   <body>
     <div class="dashboard">
-      <h1 style="text-align: center">DASHBOARD HERE</h1>
+      <h1>Hello <?php echo $first_name; ?>!</h1>
     </div>
   </body>
 </html>
