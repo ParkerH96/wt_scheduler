@@ -2,6 +2,7 @@
 <html>
   <head>
     <?php include 'session.php'; ?>
+    <?php include 'connection.php'; ?>
     <meta charset="utf-8">
     <title>WT Scheduler</title>
 
@@ -40,6 +41,16 @@
   <body>
     <div class="dashboard">
       <h1>Hello <?php echo $first_name; ?>!</h1>
+      <?php
+        $traded_shifts = $mysqli->query("SELECT traded_by, shift_traded_by FROM TRADE_SHIFTS WHERE traded_to = $employee_id AND trade_status = 0");
+
+        while($current_row = $traded_shifts->fetch_assoc()){
+          $traded_by = $current_row['traded_by'];
+          $shift_traded_by = $current_row['shift_traded_by'];
+
+          echo '<h4>' . $traded_by . ' ' . $shift_traded_by . '</h4>';
+        }
+      ?>
     </div>
   </body>
 </html>
