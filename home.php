@@ -40,17 +40,48 @@
   </head>
   <body>
     <div class="dashboard">
-      <h1>Hello <?php echo $first_name; ?>!</h1>
-      <?php
-        $traded_shifts = $mysqli->query("SELECT traded_by, shift_traded_by FROM TRADE_SHIFTS WHERE traded_to = $employee_id AND trade_status = 0");
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
 
-        while($current_row = $traded_shifts->fetch_assoc()){
-          $traded_by = $current_row['traded_by'];
-          $shift_traded_by = $current_row['shift_traded_by'];
+          </div>
+          <div class="col-md-6">
 
-          echo '<h4>' . $traded_by . ' ' . $shift_traded_by . '</h4>';
-        }
-      ?>
+          </div>
+          <div class="col-md-3">
+            <div class="notification">
+              <h3>Pending Trades</h3>
+              <div class="notification-data">
+                <?php
+                  $traded_shifts = $mysqli->query("SELECT traded_by, shift_traded_by FROM TRADE_SHIFTS WHERE traded_to = $employee_id AND trade_status = 0");
+
+                  while($current_row = $traded_shifts->fetch_assoc()){
+                    $traded_by = $current_row['traded_by'];
+                    $shift_traded_by = $current_row['shift_traded_by'];
+
+                    $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_id = $shift_traded_by");
+                    $employee = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = $traded_by");
+                    $current_shift = $shift->fetch_assoc();
+                    $current_employee = $employee->fetch_assoc();
+
+                    $shift_date = $current_shift['shift_date'];
+                    $start_time = $current_shift['start_time'];
+                    $end_time = $current_shift['end_time'];
+                    $f_name = $current_employee['first_name'];
+                    $l_name = $current_employee['last_name']; ?>
+
+                    <h6><?php echo $f_name . ' ' . $l_name; ?></h6>
+                    <p>
+                      <?php echo $shift_date . ' '; ?>
+                      <?php if((int)date('H', strtotime($start_time)) % 12 != 0) { echo (int)date('H', strtotime($start_time)) % 12; } else { echo 12; } echo date(':i A', strtotime($start_time)) ?>
+                        - <?php if((int)date('H', strtotime($end_time)) % 12 != 0) { echo (int)date('H', strtotime($end_time)) % 12; } else { echo 12; } echo date(':i A', strtotime($end_time)); ?>
+                    </p>
+                <?php } ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

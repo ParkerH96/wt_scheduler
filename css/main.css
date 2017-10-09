@@ -355,3 +355,8 @@ a.control.button {
   width: 93%;
   box-shadow: 1px 1px 2px #333;
 }
+
+
+.dashboard .container {
+  padding: 2rem 0;
+}
