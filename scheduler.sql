@@ -43,11 +43,13 @@ CREATE TABLE SHIFT
 DROP TABLE IF EXISTS TRADE_SHIFTS;
 CREATE TABLE TRADE_SHIFTS
 (
+  trade_id int NOT NULL AUTO_INCREMENT,
   traded_by int NOT NULL,
   shift_traded_by int NOT NULL,
   traded_to int NOT NULL,
   shift_traded_to int NOT NULL,
   trade_status int NOT NULL,
+  PRIMARY KEY (trade_id),
   FOREIGN KEY (traded_by) REFERENCES EMPLOYEE(employee_id),
   FOREIGN KEY (shift_traded_by) REFERENCES SHIFT(shift_id),
   FOREIGN KEY (traded_to) REFERENCES EMPLOYEE(employee_id),
@@ -74,6 +76,6 @@ INSERT INTO SHIFT(employee_id, shift_date, start_time, end_time) VALUES
 (2, '2017-10-07', '03:00:00', '10:00:00'),
 (3, '2017-10-08', '04:00:00', '08:00:00');
 
-INSERT INTO TRADE_SHIFTS VALUES
+INSERT INTO TRADE_SHIFTS(traded_by, shift_traded_by, traded_to, shift_traded_to, trade_status) VALUES
 (3, 5, 1, 1, 0),
 (2, 4, 1, 2, 0);

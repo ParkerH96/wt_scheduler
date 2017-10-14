@@ -39,6 +39,50 @@
     </div>
   </head>
   <body>
+    <?php
+
+    function pretty_date($date) {
+      switch(substr($date, 5, 2)) {
+        case '01':
+          echo 'Jan ' . substr($date, 8, 2);
+          break;
+        case '02':
+          echo 'Feb ' . substr($date, 8, 2);
+          break;
+        case '03':
+          echo 'March ' . substr($date, 8, 2);
+          break;
+        case '04':
+          echo 'April ' . substr($date, 8, 2);
+          break;
+        case '05':
+          echo 'May ' . substr($date, 8, 2);
+          break;
+        case '06':
+          echo 'June ' . substr($date, 8, 2);
+          break;
+        case '07':
+          echo 'July ' . substr($date, 8, 2);
+          break;
+        case '08':
+          echo 'Aug ' . substr($date, 8, 2);
+          break;
+        case '09':
+          echo 'Sep ' . substr($date, 8, 2);
+          break;
+        case '10':
+          echo 'Oct ' . substr($date, 8, 2);
+          break;
+        case '11':
+          echo 'Nov ' . substr($date, 8, 2);
+          break;
+        case '12':
+          echo 'Dec ' . substr($date, 8, 2);
+          break;
+      }
+    }
+
+    ?>
     <div class="dashboard">
       <div class="container">
         <div class="row">
@@ -53,34 +97,68 @@
               <h3>Pending Trades</h3>
               <div class="notification-data">
                 <?php
-                  $traded_shifts = $mysqli->query("SELECT traded_by, shift_traded_by FROM TRADE_SHIFTS WHERE traded_to = $employee_id AND trade_status = 0");
+                  $traded_shifts = $mysqli->query("SELECT * FROM TRADE_SHIFTS WHERE traded_to = $employee_id AND trade_status = 0");
 
                   while($current_row = $traded_shifts->fetch_assoc()){
                     $traded_by = $current_row['traded_by'];
                     $shift_traded_by = $current_row['shift_traded_by'];
+                    $shift_traded_to = $current_row['shift_traded_to'];
 
-                    $shift = $mysqli->query("SELECT * FROM SHIFT WHERE shift_id = $shift_traded_by");
+                    $shift1 = $mysqli->query("SELECT * FROM SHIFT WHERE shift_id = $shift_traded_by");
+                    $shift2 = $mysqli->query("SELECT * FROM SHIFT WHERE shift_id = $shift_traded_to");
                     $employee = $mysqli->query("SELECT * FROM EMPLOYEE WHERE employee_id = $traded_by");
-                    $current_shift = $shift->fetch_assoc();
+                    $current_shift1 = $shift1->fetch_assoc();
+                    $current_shift2 = $shift2->fetch_assoc();
                     $current_employee = $employee->fetch_assoc();
 
-                    $shift_date = $current_shift['shift_date'];
-                    $start_time = $current_shift['start_time'];
-                    $end_time = $current_shift['end_time'];
+                    $shift_date1 = $current_shift1['shift_date'];
+                    $start_time1 = $current_shift1['start_time'];
+                    $end_time1 = $current_shift1['end_time'];
+                    $shift_date2 = $current_shift2['shift_date'];
+                    $start_time2 = $current_shift2['start_time'];
+                    $end_time2 = $current_shift2['end_time'];
                     $f_name = $current_employee['first_name'];
                     $l_name = $current_employee['last_name']; ?>
 
-                    <h6><?php echo $f_name . ' ' . $l_name; ?></h6>
-                    <p>
-                      <?php echo $shift_date . ' '; ?>
-                      <?php if((int)date('H', strtotime($start_time)) % 12 != 0) { echo (int)date('H', strtotime($start_time)) % 12; } else { echo 12; } echo date(':i A', strtotime($start_time)) ?>
-                        - <?php if((int)date('H', strtotime($end_time)) % 12 != 0) { echo (int)date('H', strtotime($end_time)) % 12; } else { echo 12; } echo date(':i A', strtotime($end_time)); ?>
-                    </p>
+                    <div class="pending-shift">
+                      <h6><?php echo $f_name . ' ' . $l_name; ?></h6>
+                      <?php echo pretty_date($shift_date1) . ' '; ?>
+                      <?php if((int)date('H', strtotime($start_time1)) % 12 != 0) { echo (int)date('H', strtotime($start_time1)) % 12; } else { echo 12; } echo date(':i A', strtotime($start_time1)) ?>
+                        - <?php if((int)date('H', strtotime($end_time1)) % 12 != 0) { echo (int)date('H', strtotime($end_time1)) % 12; } else { echo 12; } echo date(':i A', strtotime($end_time1)); ?>
+                      <br>
+                      <?php echo pretty_date($shift_date2) . ' '; ?>
+                      <?php if((int)date('H', strtotime($start_time2)) % 12 != 0) { echo (int)date('H', strtotime($start_time2)) % 12; } else { echo 12; } echo date(':i A', strtotime($start_time2)) ?>
+                        - <?php if((int)date('H', strtotime($end_time2)) % 12 != 0) { echo (int)date('H', strtotime($end_time2)) % 12; } else { echo 12; } echo date(':i A', strtotime($end_time2)); ?>
+                      <br>
+                      <a class="btn btn-success" href="#" data-toggle="modal" data-target="#DoubleCheck"><i class="fa fa-check" aria-hidden="true"></i></a>
+                      <a class="btn btn-danger" href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
                 <?php } ?>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- Modals -->
+    <div id="DoubleCheck" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Approve Trade</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to Approve this trade? Upon approval, a final request will be sent to your manager.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn btn-success">Yes</a>
+            <button class="btn btn-danger" data-dismiss="modal">No</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </body>
