@@ -103,6 +103,7 @@
                     $traded_by = $current_row['traded_by'];
                     $shift_traded_by = $current_row['shift_traded_by'];
                     $shift_traded_to = $current_row['shift_traded_to'];
+                    $trade_shift_id = $current_row['trade_id'];
 
                     $shift1 = $mysqli->query("SELECT * FROM SHIFT WHERE shift_id = $shift_traded_by");
                     $shift2 = $mysqli->query("SELECT * FROM SHIFT WHERE shift_id = $shift_traded_to");
@@ -130,7 +131,7 @@
                       <?php if((int)date('H', strtotime($start_time2)) % 12 != 0) { echo (int)date('H', strtotime($start_time2)) % 12; } else { echo 12; } echo date(':i A', strtotime($start_time2)) ?>
                         - <?php if((int)date('H', strtotime($end_time2)) % 12 != 0) { echo (int)date('H', strtotime($end_time2)) % 12; } else { echo 12; } echo date(':i A', strtotime($end_time2)); ?>
                       <br>
-                      <a class="btn btn-success" href="#" data-toggle="modal" data-target="#DoubleCheck"><i class="fa fa-check" aria-hidden="true"></i></a>
+                      <a class="employee-approve-shift btn btn-success" href="#" data-toggle="modal" data-target="#DoubleCheck" data-trade-id="<?php echo $trade_shift_id; ?>"><i class="fa fa-check" aria-hidden="true"></i></a>
                       <a class="btn btn-danger" href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
                     </div>
                 <?php } ?>
@@ -161,5 +162,13 @@
 
       </div>
     </div>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.employee-approve-shift').on('click', function(){
+          let trade_id = $(this).data('trade-id');
+          $('#DoubleCheck .modal-footer a').attr('href', 'employee-approve-shift-trade.php?trade_id=' + trade_id);
+        });
+      });
+    </script>
   </body>
 </html>
